@@ -2,24 +2,53 @@ import React, { Component } from 'react';
 import './Webgame.css';
 import { render } from 'react-dom';
 
+interface TextClassProps {
+  value?: string;
+}
+
+class TextClass extends Component<TextClassProps> {
+  state: TextClassProps = {
+    value: "0",
+  };
+
+  set value(value: string){
+    this.value = value;
+  }
+
+  render() {
+    return(
+      <ul>
+        {this.props.value}
+      </ul>
+    );
+  }
+}
+
 export default class Webgame extends Component {
+  renderText(i: string){
+    return(
+      <TextClass value={i}/>
+    );
+  }
+
+
   render() {
     return (
       <div>
         <div className="Webgame">
           <div className="Webgame-leftbody">
-            <ul>Webgame 1</ul>
-            <ul>Webgame 2</ul>
-            <ul>Webgame 3</ul>
-            <ul>Webgame 4</ul>
-            <ul>Webgame 5</ul>
+            {this.renderText("default val")}
+            {this.renderText("default test")}
+            {this.renderText("sad val")}
+            {this.renderText("default val")}
+            {this.renderText("default val")}
           </div>
           <div className="Webgame-rightbody">
-            <ul>Webgame 1</ul>
-            <ul>Webgame 2</ul>
-            <ul>Webgame 3</ul>
-            <ul>Webgame 4</ul>
-            <ul>Webgame 5</ul>
+          {this.renderText("default val")}
+          {this.renderText("default val")}
+          {this.renderText("default val")}
+          {this.renderText("default val")}
+          {this.renderText("default val")}
           </div>
         </div>
         <div className="Webgame-sidebar">
