@@ -1,19 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './Webgame.css';
 import { render } from 'react-dom';
 
-class Webgame extends React.Component {
-
+export default class Webgame extends Component {
   render() {
     return (
       <div>
         <div className="Webgame">
-          <header className="Webgame-header">
-            <img src={logo} className="Webgame-logo" alt="logo" />
-          </header>
+          <div className="Webgame-leftbody">
+            <ul>Webgame 1</ul>
+            <ul>Webgame 2</ul>
+            <ul>Webgame 3</ul>
+            <ul>Webgame 4</ul>
+            <ul>Webgame 5</ul>
+          </div>
+          <div className="Webgame-rightbody">
+            <ul>Webgame 1</ul>
+            <ul>Webgame 2</ul>
+            <ul>Webgame 3</ul>
+            <ul>Webgame 4</ul>
+            <ul>Webgame 5</ul>
+          </div>
         </div>
-
         <div className="Webgame-sidebar">
           <a href="#">Home</a>
           <a href="#">Menu #2</a>
@@ -24,5 +32,3 @@ class Webgame extends React.Component {
     );
   }
 }
-
-export default Webgame;
