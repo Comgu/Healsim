@@ -2,32 +2,15 @@ import React, { Component } from 'react';
 import './Webgame.css';
 import { render } from 'react-dom';
 
-interface TextClassProps {
-  value?: string;
-}
+const TextHeader = (props: { text: string}) =>
+  <ul>{props.text}</ul>
 
-class TextClass extends Component<TextClassProps> {
-  state: TextClassProps = {
-    value: "0",
-  };
+export default class Webgame extends Component<{}, { value: string}> {
+  state = {value : "Default"};
 
-  set value(value: string){
-    this.value = value;
-  }
-
-  render() {
-    return(
-      <ul>
-        {this.props.value}
-      </ul>
-    );
-  }
-}
-
-export default class Webgame extends Component {
-  renderText(i: string){
-    return(
-      <TextClass value={i}/>
+  renderText(i: string) {
+    return (
+      <TextHeader text={i} />
     );
   }
 
@@ -37,18 +20,19 @@ export default class Webgame extends Component {
       <div>
         <div className="Webgame">
           <div className="Webgame-leftbody">
-            {this.renderText("default val")}
+            {this.renderText(this.state.value)}
             {this.renderText("default test")}
             {this.renderText("sad val")}
             {this.renderText("default val")}
             {this.renderText("default val")}
+            <a href="#" className="myButton">Button</a>
           </div>
           <div className="Webgame-rightbody">
-          {this.renderText("default val")}
-          {this.renderText("default val")}
-          {this.renderText("default val")}
-          {this.renderText("default val")}
-          {this.renderText("default val")}
+            {this.renderText("default val")}
+            {this.renderText("default val")}
+            {this.renderText("default val")}
+            {this.renderText("default val")}
+            {this.renderText("default val")}
           </div>
         </div>
         <div className="Webgame-sidebar">
