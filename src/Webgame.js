@@ -33,7 +33,6 @@ class Webgame extends React.Component {
           {this.renderText(this.state.value)}
           {this.renderText(this.state.value)}
           {this.renderText(this.state.value)}
-          <a href="#" className="myButton">Button</a>
         </div>
         <div className="Webgame-rightbody">
           {this.renderText(this.state.value)}
@@ -43,10 +42,9 @@ class Webgame extends React.Component {
           {this.renderText(this.state.value)}
         </div>
         <div className="Webgame-sidebar">
-          <a href="#">Home</a>
-          <a href="#">Menu #2</a>
-          <a href="#">Menu #3</a>
-          <a href="#">Menu #4</a>
+          <button className="myButton">Fire</button>
+          <button className="myButton">Frost</button>
+          <button className="myButton">Arcane</button>
         </div>
       </div>
     );
