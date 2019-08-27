@@ -3,11 +3,27 @@ import logo from './logo.svg';
 import './Webgame.css';
 
 class Field extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+    }
+  }
+
+  handleChange(i) {
+    this.setState({
+      value: i.target.value
+    });
+  }
+
   render() {
-    return (
-      <ul>
-        {this.props.value}
-      </ul>
+    return (   
+        <input type="text"
+          placeholder="0"
+          value={this.state.value}
+          onChange={i => this.handleChange(i)}
+        /> 
+
     );
   }
 }
@@ -15,36 +31,26 @@ class Field extends React.Component {
 class Webgame extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      spellpower: 0,
-      intellect: 0,
-      spirit: 0,
-      mp5: 0,
-      spellCrit: 0,
-      hps: 0,
-      hpm: 0,
-      healOom: 0,
-    };
   }
 
-  renderText(i) {
-    return <Field value={i}/>;
+  renderText() {
+    return <Field />;
   }
 
   render() {
     return (
       <div className="Webgame" >
         <div className="Webgame-leftbody">
-          {this.renderText(this.state.spellpower)}
-          {this.renderText(this.state.intellect)}
-          {this.renderText(this.state.spirit)}
-          {this.renderText(this.state.mp5)}
-          {this.renderText(this.state.spellCrit)}
+          <Field spellpower/>
+          <Field spirit/>
+          <Field intellect/>
+          <Field mp5/>
+          <Field spellcrit/>
         </div>
         <div className="Webgame-rightbody">
-          {this.renderText(this.state.hps)}
-          {this.renderText(this.state.hpm)}
-          {this.renderText(this.state.healOom)}
+          <Field hps/>
+          <Field hpm/>
+          <Field healUntilOom/>
         </div>
         <div className="Webgame-sidebar">
           <button className="myButton">Holy Paladin</button>
