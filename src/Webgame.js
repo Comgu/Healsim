@@ -20,16 +20,16 @@ class Field extends React.Component {
     this.state.update(i.target.value, this.state.stat);
   }
 
-
-
   render() {
-    return (   
+    return (
+      <ul>
+        <label>{this.state.stat.toUpperCase()}</label>
         <input type="text"
           placeholder="0"
           value={this.state.value}
           onChange={i => this.handleChange(i)}
         /> 
-
+      </ul>
     );
   }
 }
@@ -37,9 +37,14 @@ class Field extends React.Component {
 class Stat extends React.Component {
   render() {
     return(
-      <ul>
-        {this.props.value}
-      </ul>
+      <div>
+        <ul id="statheader">
+          {this.props.stat}
+        </ul>
+        <ul>
+          {this.props.value}
+        </ul>
+      </div>
     )
   }
 }
@@ -117,9 +122,9 @@ class Webgame extends React.Component {
           <Field value={this.state.spellcrit} update={this.updateState} stat={'spellcrit'} />
         </div>
         <div className="Webgame-rightbody">
-          <Stat value={this.state.hps}/> 
-          <Stat value={this.state.hpm}/>
-          <Stat value={this.state.healUntiloom}/>
+          <Stat value={this.state.hps} stat={"HPS"} /> 
+          <Stat value={this.state.hpm} stat={"HPM"} />
+          <Stat value={this.state.healUntiloom} stat={"Heal until OOM"} />
         </div>
         <div className="Webgame-sidebar">
           <button className="myButton">Holy Paladin</button>
