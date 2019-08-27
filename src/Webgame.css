@@ -35,18 +35,14 @@
   text-align: center;
 }
 
-.Webgame-rightbody input {
+.Webgame-rightbody ul {
   text-align: center;
   margin: 2vh auto;
   background-color: #282c34;
-  border: 1px solid #000000;
-  border-radius:17px;
 	color:#ffffff;
 	font-family:Arial;
   font-size: 2vh;
 }
-
-
 
 .Webgame-sidebar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
