@@ -6,13 +6,13 @@
 
 .Webgame-leftbody {
   background-color: #282c34;
-  min-height: 85vh;
+  min-height: 90vh;
   min-width: calc(50vw - 5vw);
   display: flex;
   flex-direction: column;
   justify-content: top;
   text-align: center;
-  padding-top: 15vh;
+  padding-top: 10vh;
 }
 
 .Webgame-leftbody input {
@@ -43,15 +43,23 @@
   text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
+.Webgame-leftbody h1 {
+  color:#acad98f3;
+  opacity: 0.8;
+  text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
+  font-family:Arial;
+  font-size: 2.1vw;
+}
+
 .Webgame-rightbody {
   background-color: #282c34;
-  min-height: 80vh;
+  min-height: 85vh;
   min-width: calc(50vw - 5vw);
   display: flex;
   flex-direction: column;
   justify-content: top;
   text-align: center;
-  padding-top: 20vh;
+  padding-top: 15vh;
 }
 
 .Webgame-rightbody div {
@@ -59,25 +67,38 @@
   flex-direction: row;
 }
 
+.Webgame-rightbody h1 {
+  color:#35ca33;
+  opacity: 0.8;
+  text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
+  font-family:Arial;
+  font-size: 2.1vw;
+}
+
 .Webgame-rightbody ul {
   text-align: left;
-  min-width: 30%;
+  min-width: 25%;
+  max-width: 25%;
+  padding-right: 10%;
   margin: 5vh auto;
   background-color: #282c34;
 	color:#ffffff;
 	font-family:Arial;
   font-size: 2vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Webgame-rightbody #statheader{
-  text-align: left;
+  text-align: right;
   min-width: 40%;
   margin: 5vh auto;
   background-color: #282c34;
 	color:#ffffff;
 	font-family:Arial;
   font-size: 2.5vw;
-  text-shadow:0 0 5px rgb(110, 110, 110), 0 0 10px rgb(0, 0, 0);
+  text-shadow:0 0 5px rgb(255, 255, 255), 0 0 10px rgb(78, 78, 78);
 }
 
 .Webgame-sidebar {
@@ -103,7 +124,7 @@
   color: #f1f1f1;
 }
 
-.myButton {
+.sidebarButton {
 	box-shadow: 0px 0px 0px 1px #333a53;
 	background:linear-gradient(to bottom, #667eaa 5%, #1b2b3f 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#667eaa', endColorstr='#1b2b3f',GradientType=0);
@@ -120,20 +141,42 @@
   margin: 0 auto;
 }
 
-.myButton:focus {
+.sidebarButton:hover {
 	background:linear-gradient(to bottom, #418383 5%, #98d4d1 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#418383', endColorstr='#98d4d1',GradientType=0);
   background-color:#418383;
 }
 
-.myButton:hover {
+.sidebarButton:active {
+	position:relative;
+	top:1px;
+}
+
+.focusButton {
+  box-shadow: 0px 0px 0px 1px #333a53;
   background:linear-gradient(to bottom, #000000 5%, #0b7e78 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#0b7e78',GradientType=0);
   background-color:#000000;
+	border:0px;
+	display:inline-block;
+	cursor:pointer;
   color:#e2e2e2;
+	font-family:Arial;
+	font-size:20px;
+	padding:15% 15%;
+	text-decoration:none;
+  text-shadow:0 0 5px rgb(0, 0, 0), 0 0 10px rgb(78, 78, 78);
+  margin: 0 auto;
   font-style: italic;
 }
-.myButton:active {
+
+.focusButton:active {
 	position:relative;
 	top:1px;
+}
+
+.focusButton:hover {
+	background:linear-gradient(to bottom, #418383 5%, #98d4d1 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#418383', endColorstr='#98d4d1',GradientType=0);
+  background-color:#418383;
 }
