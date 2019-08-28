@@ -11,11 +11,15 @@ class Field extends React.Component {
     }
   
     handleChange(i) {
+      var val = (i.target.validity.valid) ? i.target.value : this.state.value;
+      if(val == '') {
+        val = 0;
+      }
       this.setState({
-        value: i.target.value,
+        value: parseInt(val)
       });
   
-      this.state.update(i.target.value, this.state.stat);
+      this.state.update(val, this.state.stat);
     }
   
     render() {
@@ -23,7 +27,7 @@ class Field extends React.Component {
         <ul>
           <label>{this.state.stat.toUpperCase()}</label>
           <input type="text"
-            placeholder="0"
+            pattern="[0-9]*"
             value={this.state.value}
             onChange={i => this.handleChange(i)}
           /> 
