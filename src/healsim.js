@@ -106,9 +106,9 @@ class Healsim extends React.Component {
       case 'restoshaman':
         // Chain Heal (Rank 1)
         baseheal = 356.5;
-        healmulti = 1.1;
+        healmulti = 1.1 * (1 + 0.5 + 0.25);
         casttime = 2.5;
-        healcoefficient = (2.5/3.5/3);
+        healcoefficient = (2.5/3.5);
         manacost = 260 * 0.95;
         this.setState({selectedButton: 'restoshaman'});
         break;
