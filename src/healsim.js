@@ -3,12 +3,11 @@ import Field from './field';
 import Stat from './stat';
 import './healsim.css';
 
-var healamount = 368.5;
+var baseheal = 368.5;
 var healmulti = 1.12;
 var casttime = 1.5;
 var healcoefficient = (1.5/3.5); 
 var manacost = 140;
-
 
 class Healsim extends React.Component {
   constructor(props) {
@@ -19,8 +18,8 @@ class Healsim extends React.Component {
       intellect: 0,
       mp5: 0,
       spellcrit: 0,
-      hps: parseFloat(healamount / casttime).toFixed(1),
-      hpm: parseFloat(healamount / manacost).toFixed(2),
+      hps: parseFloat(baseheal / casttime).toFixed(1),
+      hpm: parseFloat(baseheal / manacost).toFixed(2),
       healUntiloom: "TBD",
       selectedButton: 'holypaladin',
     }
@@ -34,16 +33,16 @@ class Healsim extends React.Component {
       case 'spellpower':
         this.setState({
           spellpower: value,
-          hps: parseFloat(((healamount + +value*healcoefficient) / casttime)*healmulti).toFixed(1),
-          hpm: parseFloat(((healamount + +value*healcoefficient) / manacost)*healmulti).toFixed(2),
+          hps: calculateHPS(baseheal, +value, healmulti, healcoefficient, casttime),
+          hpm: calculateHPM(baseheal, +value, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
         break;
       case 'spirit':
         this.setState({
           spirit: value,
-          hps: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / casttime).toFixed(1),
-          hpm: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / manacost).toFixed(2),
+          hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+          hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
         
@@ -51,24 +50,24 @@ class Healsim extends React.Component {
       case 'intellect':
         this.setState({
           intellect: value,
-          hps: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / casttime).toFixed(1),
-          hpm: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / manacost).toFixed(2),
+          hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+          hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
         break;
       case 'mp5':
         this.setState({
           mp5: value,
-          hps: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / casttime).toFixed(1),
-          hpm: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / manacost).toFixed(2),
+          hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+          hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
         break;
       case 'spellcrit':
         this.setState({
           spellcrit: value,
-          hps: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / casttime).toFixed(1),
-          hpm: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / manacost).toFixed(2),
+          hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+          hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
         break;
@@ -79,7 +78,7 @@ class Healsim extends React.Component {
     switch(healer) {
       case 'holypaladin':
         // Max rank Flash of Light
-        healamount = 368.5;
+        baseheal = 368.5;
         healmulti = 1.12;
         casttime = 1.5;
         healcoefficient = (1.5/3.5);
@@ -88,7 +87,7 @@ class Healsim extends React.Component {
         break;
       case 'holypriest':
         // Heal (Rank 4)
-        healamount = 780.5;
+        baseheal = 780.5;
         healmulti = 1.1;
         casttime = 2.5;
         healcoefficient = (3.0/3.5);
@@ -97,7 +96,7 @@ class Healsim extends React.Component {
         break;
       case 'disciplinepriest':
         // Heal (Rank 4) Same as holy priest for now
-        healamount = 780.5;
+        baseheal = 780.5;
         healmulti = 1;
         casttime = 2.5;
         healcoefficient = (3.0/3.5);
@@ -106,7 +105,7 @@ class Healsim extends React.Component {
         break;
       case 'restoshaman':
         // Chain Heal (Rank 1)
-        healamount = 356.5;
+        baseheal = 356.5;
         healmulti = 1.1;
         casttime = 2.5;
         healcoefficient = (2.5/3.5/3);
@@ -115,7 +114,7 @@ class Healsim extends React.Component {
         break;
       case 'restodruid':
         // Healing Touch (Rank 3)
-        healamount = 228.5;
+        baseheal = 228.5;
         healmulti = 1.1;
         casttime = 2.0;
         healcoefficient = (2.5/3.5);
@@ -124,8 +123,8 @@ class Healsim extends React.Component {
         break;
     }
     this.setState({
-      hps: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / casttime).toFixed(1),
-      hpm: parseFloat((healamount + +this.state.spellpower*healcoefficient)*healmulti / manacost).toFixed(2),
+      hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+      hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
       healUntiloom: "TBD"
     });
   }
@@ -162,6 +161,14 @@ class Healsim extends React.Component {
       </div>
     );
   }
+}
+
+function calculateHPS(baseheal, spellpower, healmulti, coefficient, casttime) {
+  return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / casttime).toFixed(1);
+} 
+
+function calculateHPM(baseheal, spellpower, healmulti, coefficient, manacost) {
+  return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / manacost).toFixed(2);
 }
 
 export default Healsim;
