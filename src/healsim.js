@@ -1,61 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './Webgame.css';
+import Field from './field';
+import Stat from './stat';
+import './healsim.css';
 
 var healamount = 368.5;
 var healmulti = 1.12;
 var casttime = 1.5;
-var healcoefficient = (1.5/3.5);
+var healcoefficient = (1.5/3.5); 
 var manacost = 140;
 
-class Field extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-      update: props.update,
-      stat: props.stat,
-    }
-  }
 
-  handleChange(i) {
-    this.setState({
-      value: i.target.value,
-    });
-
-    this.state.update(i.target.value, this.state.stat);
-  }
-
-  render() {
-    return (
-      <ul>
-        <label>{this.state.stat.toUpperCase()}</label>
-        <input type="text"
-          placeholder="0"
-          value={this.state.value}
-          onChange={i => this.handleChange(i)}
-        /> 
-      </ul>
-    );
-  }
-}
-
-class Stat extends React.Component {
-  render() {
-    return(
-      <div>
-        <ul id="statheader">
-          {this.props.stat}
-        </ul>
-        <ul>
-          {this.props.value}
-        </ul>
-      </div>
-    )
-  }
-}
-
-class Webgame extends React.Component {
+class Healsim extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -177,8 +132,8 @@ class Webgame extends React.Component {
 
   render() {
     return (
-      <div className="Webgame" >
-        <div className="Webgame-leftbody">
+      <div className="Healsim" >
+        <div className="Healsim-leftbody">
           <h1>Character statistics</h1>
           <Field value={this.state.spellpower} update={this.updateState} stat={'spellpower'} />
           <Field value={this.state.spirit} update={this.updateState} stat={'spirit'} />
@@ -186,13 +141,13 @@ class Webgame extends React.Component {
           <Field value={this.state.mp5} update={this.updateState} stat={'mp5'} />
           <Field value={this.state.spellcrit} update={this.updateState} stat={'spellcrit'} />
         </div>
-        <div className="Webgame-rightbody">
+        <div className="Healsim-rightbody">
           <h1>Healing statistics</h1>
           <Stat value={this.state.hps} stat={"HPS"} /> 
           <Stat value={this.state.hpm} stat={"HPM"} />
           <Stat value={this.state.healUntiloom} stat={"Heal until OOM"} />
         </div>
-        <div className="Webgame-sidebar">
+        <div className="Healsim-sidebar">
           <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
           onClick={ () => {this.updateButton('holypaladin')}}>Holy Paladin</button>
           <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
@@ -209,4 +164,4 @@ class Webgame extends React.Component {
   }
 }
 
-export default Webgame;
+export default Healsim;

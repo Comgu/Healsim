@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Webgame from './Webgame';
+import Healsim from './healsim';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Webgame />, document.getElementById('root'));
+ReactDOM.render(<Healsim />, document.getElementById('root'));
 
 serviceWorker.unregister();

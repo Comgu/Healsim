@@ -1,10 +1,10 @@
-.Webgame {
+.Healsim {
   margin-left: 10vw;
   display: flex;
   flex-direction: row;
 }
 
-.Webgame-leftbody {
+.Healsim-leftbody {
   background-color: #282c34;
   min-height: 90vh;
   min-width: calc(50vw - 5vw);
@@ -15,7 +15,7 @@
   padding-top: 10vh;
 }
 
-.Webgame-leftbody input {
+.Healsim-leftbody input {
   text-align: center;
   margin-left: 15%;
   background-color: #282c34;
@@ -26,14 +26,14 @@
   font-size: 1vw;
 }
 
-.Webgame-leftbody ul {
+.Healsim-leftbody ul {
   display: flex;
   flex-direction: row;
   margin: 5vh 30%;
   text-align: left;
 }
 
-.Webgame-leftbody label {
+.Healsim-leftbody label {
   min-width: 33%;
   max-width: 33%;
   color:#d4d4d4;
@@ -43,7 +43,7 @@
   text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
-.Webgame-leftbody h1 {
+.Healsim-leftbody h1 {
   color:#acad98f3;
   opacity: 0.8;
   text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
@@ -51,7 +51,7 @@
   font-size: 2.1vw;
 }
 
-.Webgame-rightbody {
+.Healsim-rightbody {
   background-color: #282c34;
   min-height: 85vh;
   min-width: calc(50vw - 5vw);
@@ -62,12 +62,12 @@
   padding-top: 15vh;
 }
 
-.Webgame-rightbody div {
+.Healsim-rightbody div {
   display: flex;
   flex-direction: row;
 }
 
-.Webgame-rightbody h1 {
+.Healsim-rightbody h1 {
   color:#35ca33;
   opacity: 0.8;
   text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
@@ -75,7 +75,7 @@
   font-size: 2.1vw;
 }
 
-.Webgame-rightbody ul {
+.Healsim-rightbody ul {
   text-align: left;
   min-width: 20%;
   max-width: 20%;
@@ -90,7 +90,7 @@
   text-overflow: ellipsis;
 }
 
-.Webgame-rightbody #statheader{
+.Healsim-rightbody #statheader{
   text-align: right;
   min-width: 40%;
   margin: 5vh auto;
@@ -101,7 +101,7 @@
   text-shadow:0 0 5px rgb(255, 255, 255), 0 0 10px rgb(78, 78, 78);
 }
 
-.Webgame-sidebar {
+.Healsim-sidebar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 10vw; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -112,14 +112,14 @@
   overflow-x: hidden; /* Disable horizontal scroll */
 }
 
-.Webgame-sidebar button {
+.Healsim-sidebar button {
   font-size: calc(1.5vw);
   display: block;
   width: 100%;
   height: 20%;
 }
 
-.Webgame-sidebar a:hover {
+.Healsim-sidebar a:hover {
   color: #f1f1f1;
 }
 
