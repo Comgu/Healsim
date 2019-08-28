@@ -1,13 +1,14 @@
 import React from 'react';
 import Field from './field';
 import Stat from './stat';
+import Spells from './spells';
 import './healsim.css';
 
-var baseheal = 368.5;
+var baseheal = Spells.paladinBaseHeal["Flash of Light (Rank 6)"];
 var healmulti = 1.12;
-var casttime = 1.5;
-var healcoefficient = (1.5/3.5); 
-var manacost = 140;
+var casttime = Spells.paladinCastTime["Flash of Light (Rank 6)"];
+var healcoefficient = (Spells.paladinCastTime["Flash of Light (Rank 6)"] / 3.5);
+var manacost = Spells.paladinManaCost["Flash of Light (Rank 6)"];
 
 class Healsim extends React.Component {
   constructor(props) {
@@ -18,10 +19,11 @@ class Healsim extends React.Component {
       intellect: 0,
       mp5: 0,
       spellcrit: 0,
-      hps: parseFloat(baseheal / casttime).toFixed(1),
-      hpm: parseFloat(baseheal / manacost).toFixed(2),
+      hps: calculateHPS(baseheal, 0, healmulti, healcoefficient, casttime),
+      hpm: calculateHPM(baseheal, 0, healmulti, healcoefficient, manacost),
       healUntiloom: "TBD",
       selectedButton: 'holypaladin',
+      selectedSpell: 'Flash of Light (Rank 6)',
     }
 
     this.updateSpells = this.updateButton.bind(this);
@@ -29,7 +31,7 @@ class Healsim extends React.Component {
   }
 
   updateState = (value, stat) => {
-    switch(stat){
+    switch (stat) {
       case 'spellpower':
         this.setState({
           spellpower: value,
@@ -45,7 +47,7 @@ class Healsim extends React.Component {
           hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
           healUntiloom: "TBD"
         });
-        
+
         break;
       case 'intellect':
         this.setState({
@@ -74,52 +76,47 @@ class Healsim extends React.Component {
     }
   }
 
-  updateButton(healer) {
-    switch(healer) {
+  updateButton(healer, spell) {
+    switch (healer) {
       case 'holypaladin':
-        // Max rank Flash of Light
-        baseheal = 368.5;
+        baseheal = Spells.paladinBaseHeal[spell];
         healmulti = 1.12;
-        casttime = 1.5;
-        healcoefficient = (1.5/3.5);
-        manacost = 140;
-        this.setState({selectedButton: 'holypaladin'});
+        casttime = Spells.paladinCastTime[spell];
+        healcoefficient = (Spells.paladinCastTime[spell] / 3.5);
+        manacost = Spells.paladinManaCost[spell];
+        this.setState({ selectedButton: 'holypaladin' });
         break;
       case 'holypriest':
-        // Heal (Rank 4)
-        baseheal = 780.5;
+        baseheal = Spells.priestBaseHeal[spell];
         healmulti = 1.1;
-        casttime = 2.5;
-        healcoefficient = (3.0/3.5);
-        manacost = 305 * 0.85;
-        this.setState({selectedButton: 'holypriest'});
+        casttime = Spells.priestCastTime[spell] - 0.5;
+        healcoefficient = (Spells.priestCastTime[spell] / 3.5);
+        manacost = Spells.priestManaCost[spell] * 0.85;
+        this.setState({ selectedButton: 'holypriest' });
         break;
       case 'disciplinepriest':
-        // Heal (Rank 4) Same as holy priest for now
-        baseheal = 780.5;
+        baseheal = Spells.priestBaseHeal[spell];
         healmulti = 1;
-        casttime = 2.5;
-        healcoefficient = (3.0/3.5);
-        manacost = 305 * 0.85;
-        this.setState({selectedButton: 'disciplinepriest'});
+        casttime = Spells.priestCastTime[spell] - 0.5;
+        healcoefficient = (Spells.priestCastTime[spell] / 3.5);
+        manacost = Spells.priestManaCost[spell] * 0.85;
+        this.setState({ selectedButton: 'disciplinepriest' });
         break;
       case 'restoshaman':
-        // Chain Heal (Rank 1)
-        baseheal = 356.5;
+        baseheal = Spells.shamanBaseHeal[spell];
         healmulti = 1.1 * (1 + 0.5 + 0.25);
-        casttime = 2.5;
-        healcoefficient = (2.5/3.5);
-        manacost = 260 * 0.95;
-        this.setState({selectedButton: 'restoshaman'});
+        casttime = Spells.shamanCastTime[spell];
+        healcoefficient = (Spells.shamanCastTime[spell] / 3.5);
+        manacost = Spells.shamanManaCost[spell] * 0.95;
+        this.setState({ selectedButton: 'restoshaman' });
         break;
       case 'restodruid':
-        // Healing Touch (Rank 3)
-        baseheal = 228.5;
+        baseheal = Spells.druidBaseHeal[spell];
         healmulti = 1.1;
-        casttime = 2.0;
-        healcoefficient = (2.5/3.5);
-        manacost = 110 * 0.81;
-        this.setState({selectedButton: 'restodruid'});
+        casttime = Spells.druidCastTime[spell] - 0.5;
+        healcoefficient = (spell === "Healing Touch (Rank 3)") ? (Spells.druidCastTime[spell] / 3.5) * (1 - ((20 - 14) * 0.0375)) : (Spells.druidCastTime[spell] / 3.5);
+        manacost = Spells.druidManaCost[spell] * 0.81;
+        this.setState({ selectedButton: 'restodruid' });
         break;
     }
     this.setState({
@@ -142,21 +139,21 @@ class Healsim extends React.Component {
         </div>
         <div className="Healsim-rightbody">
           <h1>Healing statistics</h1>
-          <Stat value={this.state.hps} stat={"HPS"} /> 
+          <Stat value={this.state.hps} stat={"HPS"} />
           <Stat value={this.state.hpm} stat={"HPM"} />
           <Stat value={this.state.healUntiloom} stat={"Heal until OOM"} />
         </div>
         <div className="Healsim-sidebar">
-          <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
-          onClick={ () => {this.updateButton('holypaladin')}}>Holy Paladin</button>
-          <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
-          onClick={ () => {this.updateButton('holypriest')}}>Holy Priest</button>
-          <button className={'disciplinepriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
-          onClick={ () => {this.updateButton('disciplinepriest')}}>Discipline Priest</button>
-          <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
-          onClick={ () => {this.updateButton('restoshaman')}}>Resto Shaman</button>
-          <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"} 
-          onClick={ () => {this.updateButton('restodruid')}}>Resto Druid</button>
+          <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('holypaladin', "Flash of Light (Rank 6)") }}>Holy Paladin</button>
+          <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('holypriest', "Heal (Rank 3)") }}>Holy Priest</button>
+          <button className={'disciplinepriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('disciplinepriest', "Heal (Rank 3)") }}>Discipline Priest</button>
+          <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('restoshaman', "Chain Heal (Rank 1)") }}>Resto Shaman</button>
+          <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('restodruid', "Healing Touch (Rank 4)") }}>Resto Druid</button>
         </div>
       </div>
     );
@@ -165,7 +162,7 @@ class Healsim extends React.Component {
 
 function calculateHPS(baseheal, spellpower, healmulti, coefficient, casttime) {
   return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / casttime).toFixed(1);
-} 
+}
 
 function calculateHPM(baseheal, spellpower, healmulti, coefficient, manacost) {
   return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / manacost).toFixed(2);
