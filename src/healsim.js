@@ -22,8 +22,8 @@ class Healsim extends React.Component {
       hps: calculateHPS(baseheal, 0, healmulti, healcoefficient, casttime),
       hpm: calculateHPM(baseheal, 0, healmulti, healcoefficient, manacost),
       healUntiloom: "TBD",
-      selectedButton: 'holypaladin',
-      selectedSpell: 'Flash of Light (Rank 6)',
+      selectedButton: "holypaladin",
+      selectedSpell: "Flash of Light (Rank 6)",
       spells: Spells.paladinSpells,
     }
 
@@ -80,8 +80,11 @@ class Healsim extends React.Component {
   updateButton(healer, spell) {
     switch (healer) {
       case 'holypaladin':
-        if (spell == null) {
+        if (spell == null && healer === this.state.selectedButton) {
           spell = this.state.selectedSpell;
+        }
+        if (spell == null) {
+          spell = Spells.paladinSpells[Spells.paladinSpells.length - 1];
         }
         baseheal = Spells.paladinBaseHeal[spell];
         healmulti = 1.12;
@@ -95,8 +98,11 @@ class Healsim extends React.Component {
         });
         break;
       case 'holypriest':
-        if (spell == null) {
+        if (spell == null && healer === this.state.selectedButton) {
           spell = this.state.selectedSpell;
+        }
+        if (spell == null) {
+          spell = Spells.priestSpells[Spells.priestSpells.length - 1];
         }
         baseheal = Spells.priestBaseHeal[spell];
         healmulti = 1.1;
@@ -110,8 +116,11 @@ class Healsim extends React.Component {
         });
         break;
       case 'disciplinepriest':
-        if (spell == null) {
+        if (spell == null && healer === this.state.selectedButton) {
           spell = this.state.selectedSpell;
+        }
+        if (spell == null) {
+          spell = Spells.priestSpells[Spells.priestSpells.length - 1];
         }
         baseheal = Spells.priestBaseHeal[spell];
         healmulti = 1;
@@ -125,8 +134,11 @@ class Healsim extends React.Component {
         });
         break;
       case 'restoshaman':
-        if (spell == null) {
+        if (spell == null && healer === this.state.selectedButton) {
           spell = this.state.selectedSpell;
+        }
+        if (spell == null) {
+          spell = Spells.shamanSpells[Spells.shamanSpells.length - 1];
         }
         baseheal = Spells.shamanBaseHeal[spell];
         healmulti = 1.1 * (1 + 0.5 + 0.25);
@@ -140,8 +152,11 @@ class Healsim extends React.Component {
         });
         break;
       case 'restodruid':
-        if (spell == null) {
+        if (spell == null && healer === this.state.selectedButton) {
           spell = this.state.selectedSpell;
+        }
+        if (spell == null) {
+          spell = Spells.druidSpells[Spells.druidSpells.length - 1];
         }
         baseheal = Spells.druidBaseHeal[spell];
         healmulti = 1.1;
@@ -167,15 +182,15 @@ class Healsim extends React.Component {
       <div className="Healsim" >
         <div className="Healsim-sidebar">
           <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('holypaladin', "Flash of Light (Rank 6)") }}>Holy Paladin</button>
+            onClick={() => { this.updateButton('holypaladin', Spells.paladinSpells[this.state.spells.findIndex(spell => spell === this.state.selectedSpell)]) }}>Holy Paladin</button>
           <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('holypriest', "Heal (Rank 3)") }}>Holy Priest</button>
+            onClick={() => { this.updateButton('holypriest', Spells.priestSpells[this.state.spells.findIndex(spell => spell === this.state.selectedSpell)]) }}>Holy Priest</button>
           <button className={'disciplinepriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('disciplinepriest', "Heal (Rank 3)") }}>Discipline Priest</button>
+            onClick={() => { this.updateButton('disciplinepriest', Spells.priestSpells[this.state.spells.findIndex(spell => spell === this.state.selectedSpell)]) }}>Discipline Priest</button>
           <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('restoshaman', "Chain Heal (Rank 1)") }}>Resto Shaman</button>
+            onClick={() => { this.updateButton('restoshaman', Spells.shamanSpells[this.state.spells.findIndex(spell => spell === this.state.selectedSpell)]) }}>Resto Shaman</button>
           <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('restodruid', "Healing Touch (Rank 4)") }}>Resto Druid</button>
+            onClick={() => { this.updateButton('restodruid', Spells.druidSpells[this.state.spells.findIndex(spell => spell === this.state.selectedSpell)]) }}>Resto Druid</button>
         </div>
         <div className="Healsim-spellbar">
           <button className={this.state.spells[0] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
