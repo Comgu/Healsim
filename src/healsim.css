@@ -7,12 +7,13 @@
 .Healsim-leftbody {
   background-color: #282c34;
   min-height: 90vh;
-  min-width: calc(50vw - 5vw);
+  min-width: calc(40vw - 2px);
   display: flex;
   flex-direction: column;
   justify-content: top;
   text-align: center;
   padding-top: 10vh;
+  border-right: 4px solid rgb(8, 2, 37);
 }
 
 .Healsim-leftbody input {
@@ -20,7 +21,7 @@
   margin-left: 15%;
   background-color: #282c34;
   border: 1px solid #000000;
-  border-radius:17px;
+  border-radius:15px;
 	color:#ffffff;
 	font-family:Arial;
   font-size: 1vw;
@@ -29,7 +30,7 @@
 .Healsim-leftbody ul {
   display: flex;
   flex-direction: row;
-  margin: 5vh 30%;
+  margin: 5vh 20%;
   text-align: left;
 }
 
@@ -54,7 +55,7 @@
 .Healsim-rightbody {
   background-color: #282c34;
   min-height: 85vh;
-  min-width: calc(50vw - 5vw);
+  min-width: calc(50vw - 2px);
   display: flex;
   flex-direction: column;
   justify-content: top;
