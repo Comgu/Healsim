@@ -1,5 +1,13 @@
 
 class Spells {
+    static paladinSpells = [
+        "Flash of Light (Rank 1)",
+        "Flash of Light (Rank 2)",
+        "Flash of Light (Rank 3)",
+        "Flash of Light (Rank 4)",
+        "Flash of Light (Rank 5)",
+        "Flash of Light (Rank 6)",
+    ];
     static paladinBaseHeal = {
         "Flash of Light (Rank 1)": (67 + 77) / 2,
         "Flash of Light (Rank 2)": (102 + 117) / 2,
@@ -24,6 +32,17 @@ class Spells {
         "Flash of Light (Rank 5)": 1.5,
         "Flash of Light (Rank 6)": 1.5,
     };
+    static druidSpells = [
+        "Healing Touch (Rank 3)",
+        "Healing Touch (Rank 4)",
+        "Healing Touch (Rank 5)",
+        "Healing Touch (Rank 6)",
+        "Healing Touch (Rank 7)",
+        "Healing Touch (Rank 8)",
+        "Healing Touch (Rank 9)",
+        "Healing Touch (Rank 10)",
+        "Healing Touch (Rank 11)",
+    ];
     static druidBaseHeal = {
         "Healing Touch (Rank 3)": (204 + 253) / 2,
         "Healing Touch (Rank 4)": (376 + 459) / 2,
@@ -57,6 +76,16 @@ class Spells {
         "Healing Touch (Rank 10)": 3.5,
         "Healing Touch (Rank 11)": 3.5,
     };
+    static priestSpells = [
+        "Heal (Rank 2)",
+        "Heal (Rank 3)",
+        "Heal (Rank 4)",
+        "Greater Heal (Rank 1)",
+        "Greater Heal (Rank 2)",
+        "Greater Heal (Rank 3)",
+        "Greater Heal (Rank 4)",
+        "Greater Heal (Rank 5)",
+    ];
     static priestBaseHeal = {
         "Heal (Rank 2)": (445 + 507) / 2,
         "Heal (Rank 3)": (586 + 662) / 2,
@@ -87,6 +116,11 @@ class Spells {
         "Greater Heal (Rank 4)": 3,
         "Greater Heal (Rank 5)": 3,
     };
+    static shamanSpells = [
+        "Chain Heal (Rank 1)",
+        "Chain Heal (Rank 2)",
+        "Chain Heal (Rank 3)",
+    ];
     static shamanBaseHeal = {
         "Chain Heal (Rank 1)": (332 + 381) / 2,
         "Chain Heal (Rank 2)": (419 + 479) / 2,
