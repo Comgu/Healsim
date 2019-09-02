@@ -204,7 +204,7 @@
 
 .spellbarButton {
 	box-shadow: 0px 0px 0px 1px #333a53;
-	background:linear-gradient(to bottom, #667eaa 5%, #1b2b3f 100%);
+	background:linear-gradient(to bottom, #4066ad 5%, #020305 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#667eaa', endColorstr='#1b2b3f',GradientType=0);
 	background-color:#667eaa;
 	border:0px;
@@ -218,7 +218,7 @@
 }
 
 .spellbarButton:hover {
-	background:linear-gradient(to bottom, #418383 5%, #98d4d1 100%);
+	background:linear-gradient(to bottom, #418355 5%, #98d4a5 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#418383', endColorstr='#98d4d1',GradientType=0);
   background-color:#418383;
 }
@@ -229,7 +229,7 @@
 
 .spellfocusButton {
 	box-shadow: 0px 0px 0px 1px #333a53;
-  background:linear-gradient(to bottom, #000000 5%, #0b7e78 100%);
+  background:linear-gradient(to bottom, #000000 5%, #e00101 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#0b7e78',GradientType=0);
   background-color:#000000;
 	border:0px;
@@ -243,7 +243,7 @@
 }
 
 .spellfocusButton:hover {
-	background:linear-gradient(to bottom, #418383 5%, #98d4d1 100%);
+	background:linear-gradient(to bottom, #418355 5%, #98d4a5 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#418383', endColorstr='#98d4d1',GradientType=0);
   background-color:#418383;
 }
