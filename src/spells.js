@@ -136,6 +136,85 @@ class Spells {
         "Chain Heal (Rank 2)": 2.5,
         "Chain Heal (Rank 3)": 2.5,
     };
+
+    static getBaseHeal(className, spell) {
+        switch (className) {
+            case "holypaladin":
+                return this.paladinBaseHeal[spell];
+                break;
+            case "holypriest":
+                return this.priestBaseHeal[spell];
+                break;
+            case "restoshaman":
+                return this.shamanBaseHeal[spell];
+                break;
+            case "restodruid":
+                return this.druidBaseHeal[spell];
+                break;
+            default:
+                // Invalid class
+                return 1;
+        }
+    }
+
+    static getCastTime(className, spell) {
+        switch (className) {
+            case "holypaladin":
+                return this.paladinCastTime[spell];
+                break;
+            case "holypriest":
+                return this.priestCastTime[spell];
+                break;
+            case "restoshaman":
+                return this.shamanCastTime[spell];
+                break;
+            case "restodruid":
+                return this.druidCastTime[spell];
+                break;
+            default:
+                // Invalid class
+                return 1;
+        }
+    }
+
+    static getManaCost(className, spell) {
+        switch (className) {
+            case "holypaladin":
+                return this.paladinManaCost[spell];
+                break;
+            case "holypriest":
+                return this.priestManaCost[spell];
+                break;
+            case "restoshaman":
+                return this.shamanManaCost[spell];
+                break;
+            case "restodruid":
+                return this.druidManaCost[spell];
+                break;
+            default:
+                // Invalid class
+                return 1;
+        }
+    }
+
+    static getSpells(className) {
+        switch (className) {
+            case "holypaladin":
+                return this.paladinSpells;
+                break;
+            case "holypriest":
+                return this.priestSpells;
+                break;
+            case "restoshaman":
+                return this.shamanSpells;
+                break;
+            case "restodruid":
+                return this.druidSpells;
+                break;
+            default:
+            // Not valid class
+        }
+    }
 }
 
 export default Spells;

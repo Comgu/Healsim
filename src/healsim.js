@@ -2,6 +2,7 @@ import React from 'react';
 import Field from './field';
 import Stat from './stat';
 import Spells from './spells';
+import Classes from './classes';
 import './healsim.css';
 
 var baseheal = Spells.paladinBaseHeal["Flash of Light (Rank 6)"];
@@ -9,6 +10,12 @@ var healmulti = 1.12;
 var casttime = Spells.paladinCastTime["Flash of Light (Rank 6)"];
 var healcoefficient = (Spells.paladinCastTime["Flash of Light (Rank 6)"] / 3.5);
 var manacost = Spells.paladinManaCost["Flash of Light (Rank 6)"];
+var basemana = Classes.paladinBaseMana;
+var baseintellect = Classes.paladinBaseIntellect;
+var basespirit = Classes.paladinBaseSpirit;
+var mp5PerSpirit = Classes.paladinMP5PerSpirit;
+var baseSpiritMP5 = Classes.paladinBaseSpiritMP5;
+var intPerCrit = Classes.paladinIntPerCrit;
 
 class Healsim extends React.Component {
   constructor(props) {
@@ -27,16 +34,15 @@ class Healsim extends React.Component {
       spells: Spells.paladinSpells,
       lastSpell: {
         "holypaladin": "Flash of Light (Rank 6)",
-        "holypriest": "Heal (Rank 3)",
-        "restoshaman": "Chain Heal (Rank 1)",
-        "restodruid": "Healing Touch (Rank 3)"
+        "holypriest": "Greater Heal (Rank 5)",
+        "restoshaman": "Chain Heal (Rank 3)",
+        "restodruid": "Healing Touch (Rank 11)"
       }
     }
 
     this.updateSpells = this.updateButton.bind(this);
     this.updateState = this.updateState.bind(this);
   }
-
 
   render() {
     return (
@@ -90,7 +96,7 @@ class Healsim extends React.Component {
     );
   }
 
-  updateState = (value, stat) => {
+  updateState(value, stat) {
     switch (stat) {
       case 'spellpower':
         this.setState({
@@ -145,20 +151,11 @@ class Healsim extends React.Component {
         if (spell == null) {
           spell = Spells.paladinSpells[Spells.paladinSpells.length - 1];
         }
-        baseheal = Spells.paladinBaseHeal[spell];
-        healmulti = 1.12;
-        casttime = Spells.paladinCastTime[spell];
         healcoefficient = (Spells.paladinCastTime[spell] / 3.5);
-        manacost = Spells.paladinManaCost[spell];
+        updateGlobalVars(healer, spell); // Need to be valid
 
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypaladin"] = spell;
-        this.setState({
-          selectedButton: 'holypaladin',
-          selectedSpell: spell,
-          spells: Spells.paladinSpells,
-          lastSpell: lastSpellTemp
-        });
         break;
       case 'holypriest':
         if (spell == null && healer === this.state.selectedButton) {
@@ -167,20 +164,11 @@ class Healsim extends React.Component {
         if (spell == null) {
           spell = Spells.priestSpells[Spells.priestSpells.length - 1];
         }
-        baseheal = Spells.priestBaseHeal[spell];
-        healmulti = 1.1;
-        casttime = Spells.priestCastTime[spell] - 0.5;
         healcoefficient = (Spells.priestCastTime[spell] / 3.5);
-        manacost = Spells.priestManaCost[spell] * 0.85;
+        updateGlobalVars(healer, spell); // Need to be valid
 
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypriest"] = spell;
-        this.setState({
-          selectedButton: 'holypriest',
-          selectedSpell: spell,
-          spells: Spells.priestSpells,
-          lastSpell: lastSpellTemp
-        });
         break;
       case 'restoshaman':
         if (spell == null && healer === this.state.selectedButton) {
@@ -189,20 +177,12 @@ class Healsim extends React.Component {
         if (spell == null) {
           spell = Spells.shamanSpells[Spells.shamanSpells.length - 1];
         }
-        baseheal = Spells.shamanBaseHeal[spell];
-        healmulti = 1.1 * (1 + 0.5 + 0.25);
-        casttime = Spells.shamanCastTime[spell];
         healcoefficient = (Spells.shamanCastTime[spell] / 3.5);
-        manacost = Spells.shamanManaCost[spell] * 0.95;
+        updateGlobalVars(healer, spell); // Need to be valid
+
 
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restoshaman"] = spell;
-        this.setState({
-          selectedButton: 'restoshaman',
-          selectedSpell: spell,
-          spells: Spells.shamanSpells,
-          lastSpell: lastSpellTemp
-        });
         break;
       case 'restodruid':
         if (spell == null && healer === this.state.selectedButton) {
@@ -211,26 +191,23 @@ class Healsim extends React.Component {
         if (spell == null) {
           spell = Spells.druidSpells[Spells.druidSpells.length - 1];
         }
-        baseheal = Spells.druidBaseHeal[spell];
-        healmulti = 1.1;
-        casttime = Spells.druidCastTime[spell] - 0.5;
         healcoefficient = (spell === "Healing Touch (Rank 3)") ? (Spells.druidCastTime[spell] / 3.5) * (1 - ((20 - 14) * 0.0375)) : (Spells.druidCastTime[spell] / 3.5);
-        manacost = Spells.druidManaCost[spell] * 0.81;
-
+        updateGlobalVars(healer, spell); // Need to be valid
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restodruid"] = spell;
-        this.setState({
-          selectedButton: 'restodruid',
-          selectedSpell: spell,
-          spells: Spells.druidSpells,
-          lastSpell: lastSpellTemp
-        });
         break;
+      default:
+      // Invalid class
     }
+
     this.setState({
       hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
       hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
-      healUntiloom: "TBD"
+      healUntiloom: "TBD",
+      selectedButton: healer,
+      selectedSpell: spell,
+      spells: Spells.getSpells(healer),
+      lastSpell: lastSpellTemp
     });
   }
 }
@@ -241,6 +218,21 @@ function calculateHPS(baseheal, spellpower, healmulti, coefficient, casttime) {
 
 function calculateHPM(baseheal, spellpower, healmulti, coefficient, manacost) {
   return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / manacost).toFixed(2);
+}
+
+function updateGlobalVars(className, spell) {
+  // Not healcoefficient
+  // Issues with wrong heal values for some classes (Seen with wrong HPS/HPM calculated)
+  baseheal = Spells.getBaseHeal(className, spell);
+  casttime = Spells.getCastTime(className, spell);
+  manacost = Spells.getManaCost(className, spell);
+  basemana = Classes.getBaseMana(className);
+  baseintellect = Classes.getBaseIntellect(className);
+  basespirit = Classes.getBaseSpirit(className);
+  mp5PerSpirit = Classes.getMP5PerSpirit(className);
+  baseSpiritMP5 = Classes.getBaseSpiritMP5(className);
+  intPerCrit = Classes.getIntPerCrit(className);
+  healmulti = Classes.healMultiMap[className];
 }
 
 export default Healsim;
