@@ -53,16 +53,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinBaseMana;
-                break;
             case "holypriest":
                 return this.priestBaseMana;
-                break;
             case "restoshaman":
                 return this.shamanBaseMana;
-                break;
             case "restodruid":
                 return this.druidBaseMana;
-                break;
             default:
             // Not valid class
         }
@@ -72,16 +68,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinBaseIntellect;
-                break;
             case "holypriest":
                 return this.priestBaseIntellect;
-                break;
             case "restoshaman":
                 return this.shamanBaseIntellect;
-                break;
             case "restodruid":
                 return this.druidBaseIntellect;
-                break;
             default:
             // Not valid class
         }
@@ -91,16 +83,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinBaseSpirit;
-                break;
             case "holypriest":
                 return this.priestBaseSpirit;
-                break;
             case "restoshaman":
                 return this.shamanBaseSpirit;
-                break;
             case "restodruid":
                 return this.druidBaseSpirit;
-                break;
             default:
             // Not valid class
         }
@@ -110,16 +98,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinIntPerCrit;
-                break;
             case "holypriest":
                 return this.priestIntPerCrit;
-                break;
             case "restoshaman":
                 return this.shamanIntPerCrit;
-                break;
             case "restodruid":
                 return this.druidIntPerCrit;
-                break;
             default:
             // Not valid class
         }
@@ -129,16 +113,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinMP5PerSpirit;
-                break;
             case "holypriest":
                 return this.priestMP5PerSpirit;
-                break;
             case "restoshaman":
                 return this.shamanMP5PerSpirit;
-                break;
             case "restodruid":
                 return this.druidMP5PerSpirit;
-                break;
             default:
             // Not valid class
         }
@@ -148,16 +128,12 @@ class Classes {
         switch (className) {
             case "holypaladin":
                 return this.paladinBaseSpiritMP5;
-                break;
             case "holypriest":
                 return this.priestBaseSpiritMP5;
-                break;
             case "restoshaman":
                 return this.shamanBaseSpiritMP5;
-                break;
             case "restodruid":
                 return this.druidBaseSpiritMP5;
-                break;
             default:
             // Not valid class
         }
