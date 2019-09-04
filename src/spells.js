@@ -85,7 +85,7 @@ class Spells {
         "Healing Touch (Rank 11)": 3,
     };
     static druidCoefficient = {
-        "Healing Touch (Rank 3)": 2.5 / 3.5,
+        "Healing Touch (Rank 3)": 2.5 / 3.5 * (1 - ((20 - 14) * 0.0375)),
         "Healing Touch (Rank 4)": 3.0 / 3.5,
         "Healing Touch (Rank 5)": 3.5 / 3.5,
         "Healing Touch (Rank 6)": 3.5 / 3.5,

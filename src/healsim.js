@@ -143,34 +143,23 @@ class Healsim extends React.Component {
   }
 
   updateButton(healer, spell) {
-    updateGlobalVars(healer, spell); // Need to be valid
+    spell = this.validateHealerSpell(healer, spell);
+    updateGlobalVars(healer, spell);
 
     switch (healer) {
       case 'holypaladin':
-        spell = this.validateHealerSpell(healer, spell);
-        healcoefficient = (Spells.paladinCastTime[spell] / 3.5);
-
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypaladin"] = spell;
         break;
       case 'holypriest':
-        spell = this.validateHealerSpell(healer, spell);
-        healcoefficient = (Spells.priestCastTime[spell] / 3.5);
-
         lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypriest"] = spell;
         break;
       case 'restoshaman':
-        spell = this.validateHealerSpell(healer, spell);
-        healcoefficient = (Spells.shamanCastTime[spell] / 3.5);
-
         lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restoshaman"] = spell;
         break;
       case 'restodruid':
-        spell = this.validateHealerSpell(healer, spell);
-        healcoefficient = (spell === "Healing Touch (Rank 3)") ? (Spells.druidCastTime[spell] / 3.5) * (1 - ((20 - 14) * 0.0375)) : (Spells.druidCastTime[spell] / 3.5);
-
         lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restodruid"] = spell;
         break;
@@ -212,11 +201,10 @@ function calculateHPM(baseheal, spellpower, healmulti, coefficient, manacost) {
 }
 
 function updateGlobalVars(className, spell) {
-  // Not healcoefficient
-  // Issues with wrong heal values for some classes (Seen with wrong HPS/HPM calculated)
   baseheal = Spells.getBaseHeal(className, spell);
   casttime = Spells.getCastTime(className, spell);
   manacost = Spells.getManaCost(className, spell) * Classes.manaMultiMap[className];
+  healcoefficient = Spells.getCoefficient(className, spell);
   basemana = Classes.getBaseMana(className);
   baseintellect = Classes.getBaseIntellect(className);
   basespirit = Classes.getBaseSpirit(className);
