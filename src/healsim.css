@@ -10,38 +10,9 @@
   min-width: calc(40vw - 2px);
   display: flex;
   flex-direction: column;
-  justify-content: top;
   text-align: center;
   padding-top: 10vh;
-  border-right: 4px solid rgb(8, 2, 37);
-}
-
-.Healsim-leftbody input {
-  text-align: center;
-  margin-left: 15%;
-  background-color: #282c34;
-  border: 1px solid #000000;
-  border-radius:15px;
-	color:#ffffff;
-	font-family:Arial;
-  font-size: 1vw;
-}
-
-.Healsim-leftbody ul {
-  display: flex;
-  flex-direction: row;
-  margin: 5vh 20%;
-  text-align: left;
-}
-
-.Healsim-leftbody label {
-  min-width: 33%;
-  max-width: 33%;
-  color:#d4d4d4;
-  font-family:Arial;
-  font-size: 1vw;
-  font-weight: bold;
-  text-shadow: 0 0 10px rgb(0, 0, 0);
+  border-right: 2px solid rgb(8, 2, 37);
 }
 
 .Healsim-leftbody h1 {
@@ -49,23 +20,42 @@
   opacity: 0.8;
   text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
   font-family:Arial;
-  font-size: 2.1vw;
+  font-size: 48px;
+}
+
+.Healsim-leftbody ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Healsim-leftbody input {
+  text-align: center;
+  background-color: #282c34;
+  border: 1px solid #000000;
+  border-radius:15px;
+	color:#ffffff;
+	font-family:Arial;
+  font-size: 20px;
+  margin-right: 1%;
+}
+
+.Healsim-leftbody label {
+  color:#d4d4d4;
+  font-family:Arial;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 .Healsim-rightbody {
   background-color: #282c34;
-  min-height: 85vh;
+  min-height: 90vh;
   min-width: calc(50vw - 2px);
   display: flex;
   flex-direction: column;
-  justify-content: top;
   text-align: center;
-  padding-top: 15vh;
-}
-
-.Healsim-rightbody div {
-  display: flex;
-  flex-direction: row;
+  padding-top: 10vh;
+  border-left: 2px solid rgb(8, 2, 37);
 }
 
 .Healsim-rightbody h1 {
@@ -73,33 +63,33 @@
   opacity: 0.8;
   text-shadow: -1px -1px 1px rgb(186, 241, 185), 1px 1px 1px #000;
   font-family:Arial;
-  font-size: 2.1vw;
+  font-size: 48px;
 }
 
 .Healsim-rightbody ul {
-  text-align: left;
-  min-width: 20%;
-  max-width: 20%;
-  padding-right: 10%;
-  margin: 5vh auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Healsim-rightbody p {
   background-color: #282c34;
 	color:#ffffff;
 	font-family:Arial;
-  font-size: 2vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 32px;
+  margin-right: 5%;
 }
 
 .Healsim-rightbody #statheader{
   text-align: right;
-  min-width: 40%;
-  margin: 5vh auto;
   background-color: #282c34;
 	color:#ffffff;
 	font-family:Arial;
-  font-size: 2.5vw;
-  text-shadow:0 0 5px rgb(255, 255, 255), 0 0 10px rgb(78, 78, 78);
+  font-size: 32px;
+  margin-left: 5%;
 }
 
 .Healsim-sidebar {
@@ -125,7 +115,7 @@
 }
 
 .Healsim-spellbar {
-  width: 90vw; /* Full-width: remove this if you want "auto" height */
+  width: 90%; /* Full-width: remove this if you want "auto" height */
   height: 10vh; /* Set the height of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */

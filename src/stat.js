@@ -1,18 +1,18 @@
 import React from 'react';
 
 class Stat extends React.Component {
-    render() {
-      return(
-        <div>
-          <ul id="statheader">
-            {this.props.stat}
-          </ul>
-          <ul>
-            {this.props.value}
-          </ul>
-        </div>
-      )
-    }
+  render() {
+    return (
+      <ul>
+        <p id="statheader">
+          {this.props.stat}
+        </p>
+        <p>
+          {this.props.value}
+        </p>
+      </ul>
+    )
   }
+}
 
-  export default Stat;
+export default Stat;

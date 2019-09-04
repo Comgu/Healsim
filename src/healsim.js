@@ -37,6 +37,59 @@ class Healsim extends React.Component {
     this.updateState = this.updateState.bind(this);
   }
 
+
+  render() {
+    return (
+      <div className="Healsim" >
+        <div className="Healsim-sidebar">
+          <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('holypaladin', this.state.lastSpell["holypaladin"]) }}>Holy Paladin</button>
+          <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('holypriest', this.state.lastSpell["holypriest"]) }}>Holy Priest</button>
+          <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('restoshaman', this.state.lastSpell["restoshaman"]) }}>Resto Shaman</button>
+          <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+            onClick={() => { this.updateButton('restodruid', this.state.lastSpell["restodruid"]) }}>Resto Druid</button>
+        </div>
+        <div className="Healsim-spellbar">
+          <button className={this.state.spells[0] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[0]) }}>{this.state.spells[0]}</button>
+          <button className={this.state.spells[1] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[1]) }}> {this.state.spells[1]}</button>
+          <button className={this.state.spells[2] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[2]) }}>{this.state.spells[2]}</button>
+          <button className={this.state.spells[3] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[3]) }}>{this.state.spells[3]}</button>
+          <button className={this.state.spells[4] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[4]) }}>{this.state.spells[4]}</button>
+          <button className={this.state.spells[5] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[5]) }}>{this.state.spells[5]}</button>
+          <button className={this.state.spells[6] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[6]) }}>{this.state.spells[6]}</button>
+          <button className={this.state.spells[7] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[7]) }}>{this.state.spells[7]}</button>
+          <button className={this.state.spells[8] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
+            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[8]) }}>{this.state.spells[8]}</button>
+        </div>
+
+        <div className="Healsim-leftbody">
+          <h1>Character statistics</h1>
+          <Field value={this.state.spellpower} update={this.updateState} stat={'spellpower'} />
+          <Field value={this.state.spirit} update={this.updateState} stat={'spirit'} />
+          <Field value={this.state.intellect} update={this.updateState} stat={'intellect'} />
+          <Field value={this.state.mp5} update={this.updateState} stat={'mp5'} />
+          <Field value={this.state.spellcrit} update={this.updateState} stat={'spellcrit'} />
+        </div>
+        <div className="Healsim-rightbody">
+          <h1>Healing statistics</h1>
+          <Stat value={this.state.hps} stat={"HPS"} />
+          <Stat value={this.state.hpm} stat={"HPM"} />
+          <Stat value={this.state.healUntiloom} stat={"Heal until OOM"} />
+        </div>
+      </div>
+    );
+  }
+
   updateState = (value, stat) => {
     switch (stat) {
       case 'spellpower':
@@ -179,59 +232,6 @@ class Healsim extends React.Component {
       hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
       healUntiloom: "TBD"
     });
-  }
-
-  render() {
-    return (
-      <div className="Healsim" >
-        <div className="Healsim-sidebar">
-          <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('holypaladin', this.state.lastSpell["holypaladin"]) }}>Holy Paladin</button>
-          <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('holypriest', this.state.lastSpell["holypriest"]) }}>Holy Priest</button>
-          <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('restoshaman', this.state.lastSpell["restoshaman"]) }}>Resto Shaman</button>
-          <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
-            onClick={() => { this.updateButton('restodruid', this.state.lastSpell["restodruid"]) }}>Resto Druid</button>
-        </div>
-        <div className="Healsim-spellbar">
-          <button className={this.state.spells[0] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[0]) }}>{this.state.spells[0]}</button>
-          <button className={this.state.spells[1] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[1]) }}> {this.state.spells[1]}</button>
-          <button className={this.state.spells[2] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[2]) }}>{this.state.spells[2]}</button>
-          <button className={this.state.spells[3] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[3]) }}>{this.state.spells[3]}</button>
-          <button className={this.state.spells[4] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[4]) }}>{this.state.spells[4]}</button>
-          <button className={this.state.spells[5] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[5]) }}>{this.state.spells[5]}</button>
-          <button className={this.state.spells[6] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[6]) }}>{this.state.spells[6]}</button>
-          <button className={this.state.spells[7] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[7]) }}>{this.state.spells[7]}</button>
-          <button className={this.state.spells[8] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[8]) }}>{this.state.spells[8]}</button>
-        </div>
-
-        <div className="Healsim-leftbody">
-          <h1>Character statistics</h1>
-          <Field value={this.state.spellpower} update={this.updateState} stat={'spellpower'} />
-          <Field value={this.state.spirit} update={this.updateState} stat={'spirit'} />
-          <Field value={this.state.intellect} update={this.updateState} stat={'intellect'} />
-          <Field value={this.state.mp5} update={this.updateState} stat={'mp5'} />
-          <Field value={this.state.spellcrit} update={this.updateState} stat={'spellcrit'} />
-        </div>
-        <div className="Healsim-rightbody">
-          <h1>Healing statistics</h1>
-          <Stat value={this.state.hps} stat={"HPS"} />
-          <Stat value={this.state.hpm} stat={"HPM"} />
-          <Stat value={this.state.healUntiloom} stat={"Heal until OOM"} />
-        </div>
-
-      </div>
-    );
   }
 }
 
