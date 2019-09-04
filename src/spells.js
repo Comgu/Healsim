@@ -32,6 +32,14 @@ class Spells {
         "Flash of Light (Rank 5)": 1.5,
         "Flash of Light (Rank 6)": 1.5,
     };
+    static paladinCoefficient = {
+        "Flash of Light (Rank 1)": 1.5 / 3.5,
+        "Flash of Light (Rank 2)": 1.5 / 3.5,
+        "Flash of Light (Rank 3)": 1.5 / 3.5,
+        "Flash of Light (Rank 4)": 1.5 / 3.5,
+        "Flash of Light (Rank 5)": 1.5 / 3.5,
+        "Flash of Light (Rank 6)": 1.5 / 3.5,
+    };
     static druidSpells = [
         "Healing Touch (Rank 3)",
         "Healing Touch (Rank 4)",
@@ -66,15 +74,26 @@ class Spells {
         "Healing Touch (Rank 11)": 800,
     };
     static druidCastTime = {
-        "Healing Touch (Rank 3)": 2.5,
-        "Healing Touch (Rank 4)": 3.0,
-        "Healing Touch (Rank 5)": 3.5,
-        "Healing Touch (Rank 6)": 3.5,
-        "Healing Touch (Rank 7)": 3.5,
-        "Healing Touch (Rank 8)": 3.5,
-        "Healing Touch (Rank 9)": 3.5,
-        "Healing Touch (Rank 10)": 3.5,
-        "Healing Touch (Rank 11)": 3.5,
+        "Healing Touch (Rank 3)": 2,
+        "Healing Touch (Rank 4)": 2.5,
+        "Healing Touch (Rank 5)": 3,
+        "Healing Touch (Rank 6)": 3,
+        "Healing Touch (Rank 7)": 3,
+        "Healing Touch (Rank 8)": 3,
+        "Healing Touch (Rank 9)": 3,
+        "Healing Touch (Rank 10)": 3,
+        "Healing Touch (Rank 11)": 3,
+    };
+    static druidCoefficient = {
+        "Healing Touch (Rank 3)": 2.5 / 3.5,
+        "Healing Touch (Rank 4)": 3.0 / 3.5,
+        "Healing Touch (Rank 5)": 3.5 / 3.5,
+        "Healing Touch (Rank 6)": 3.5 / 3.5,
+        "Healing Touch (Rank 7)": 3.5 / 3.5,
+        "Healing Touch (Rank 8)": 3.5 / 3.5,
+        "Healing Touch (Rank 9)": 3.5 / 3.5,
+        "Healing Touch (Rank 10)": 3.5 / 3.5,
+        "Healing Touch (Rank 11)": 3.5 / 3.5,
     };
     static priestSpells = [
         "Heal (Rank 2)",
@@ -107,15 +126,26 @@ class Spells {
         "Greater Heal (Rank 5)": 710,
     };
     static priestCastTime = {
-        "Heal (Rank 2)": 3,
-        "Heal (Rank 3)": 3,
-        "Heal (Rank 4)": 3,
-        "Greater Heal (Rank 1)": 3,
-        "Greater Heal (Rank 2)": 3,
-        "Greater Heal (Rank 3)": 3,
-        "Greater Heal (Rank 4)": 3,
-        "Greater Heal (Rank 5)": 3,
+        "Heal (Rank 2)": 2.5,
+        "Heal (Rank 3)": 2.5,
+        "Heal (Rank 4)": 2.5,
+        "Greater Heal (Rank 1)": 2.5,
+        "Greater Heal (Rank 2)": 2.5,
+        "Greater Heal (Rank 3)": 2.5,
+        "Greater Heal (Rank 4)": 2.5,
+        "Greater Heal (Rank 5)": 2.5,
     };
+    static priestCoefficient = {
+        "Heal (Rank 2)": 3 / 3.5,
+        "Heal (Rank 3)": 3 / 3.5,
+        "Heal (Rank 4)": 3 / 3.5,
+        "Greater Heal (Rank 1)": 3 / 3.5,
+        "Greater Heal (Rank 2)": 3 / 3.5,
+        "Greater Heal (Rank 3)": 3 / 3.5,
+        "Greater Heal (Rank 4)": 3 / 3.5,
+        "Greater Heal (Rank 5)": 3 / 3.5,
+    };
+
     static shamanSpells = [
         "Chain Heal (Rank 1)",
         "Chain Heal (Rank 2)",
@@ -135,6 +165,11 @@ class Spells {
         "Chain Heal (Rank 1)": 2.5,
         "Chain Heal (Rank 2)": 2.5,
         "Chain Heal (Rank 3)": 2.5,
+    };
+    static shamanCoefficient = {
+        "Chain Heal (Rank 1)": 2.5 / 3.5,
+        "Chain Heal (Rank 2)": 2.5 / 3.5,
+        "Chain Heal (Rank 3)": 2.5 / 3.5,
     };
 
     static getBaseHeal(className, spell) {
@@ -197,6 +232,25 @@ class Spells {
         }
     }
 
+    static getCoefficient(className, spell) {
+        switch (className) {
+            case "holypaladin":
+                return this.paladinCoefficient[spell];
+                break;
+            case "holypriest":
+                return this.priestCoefficient[spell];
+                break;
+            case "restoshaman":
+                return this.shamanCoefficient[spell];
+                break;
+            case "restodruid":
+                return this.druidCoefficient[spell];
+                break;
+            default:
+                // Not valid class
+                return 1;
+        }
+    }
     static getSpells(className) {
         switch (className) {
             case "holypaladin":

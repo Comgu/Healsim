@@ -10,6 +10,13 @@ class Classes {
         "restodruid": 1.1,
     }
 
+    static manaMultiMap = {
+        "holypaladin": 1,
+        "holypriest": 0.85,
+        "restoshaman": 0.95,
+        "restodruid": 0.81,
+    }
+
     // Night Elf Druid Base Stats
     static druidBaseMana = 1244;
     static druidBaseIntellect = 100 - ineffective;

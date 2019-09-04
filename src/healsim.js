@@ -143,57 +143,35 @@ class Healsim extends React.Component {
   }
 
   updateButton(healer, spell) {
+    updateGlobalVars(healer, spell); // Need to be valid
+
     switch (healer) {
       case 'holypaladin':
-        if (spell == null && healer === this.state.selectedButton) {
-          spell = this.state.selectedSpell;
-        }
-        if (spell == null) {
-          spell = Spells.paladinSpells[Spells.paladinSpells.length - 1];
-        }
+        spell = this.validateHealerSpell(healer, spell);
         healcoefficient = (Spells.paladinCastTime[spell] / 3.5);
-        updateGlobalVars(healer, spell); // Need to be valid
 
         var lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypaladin"] = spell;
         break;
       case 'holypriest':
-        if (spell == null && healer === this.state.selectedButton) {
-          spell = this.state.selectedSpell;
-        }
-        if (spell == null) {
-          spell = Spells.priestSpells[Spells.priestSpells.length - 1];
-        }
+        spell = this.validateHealerSpell(healer, spell);
         healcoefficient = (Spells.priestCastTime[spell] / 3.5);
-        updateGlobalVars(healer, spell); // Need to be valid
 
-        var lastSpellTemp = this.state.lastSpell;
+        lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["holypriest"] = spell;
         break;
       case 'restoshaman':
-        if (spell == null && healer === this.state.selectedButton) {
-          spell = this.state.selectedSpell;
-        }
-        if (spell == null) {
-          spell = Spells.shamanSpells[Spells.shamanSpells.length - 1];
-        }
+        spell = this.validateHealerSpell(healer, spell);
         healcoefficient = (Spells.shamanCastTime[spell] / 3.5);
-        updateGlobalVars(healer, spell); // Need to be valid
 
-
-        var lastSpellTemp = this.state.lastSpell;
+        lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restoshaman"] = spell;
         break;
       case 'restodruid':
-        if (spell == null && healer === this.state.selectedButton) {
-          spell = this.state.selectedSpell;
-        }
-        if (spell == null) {
-          spell = Spells.druidSpells[Spells.druidSpells.length - 1];
-        }
+        spell = this.validateHealerSpell(healer, spell);
         healcoefficient = (spell === "Healing Touch (Rank 3)") ? (Spells.druidCastTime[spell] / 3.5) * (1 - ((20 - 14) * 0.0375)) : (Spells.druidCastTime[spell] / 3.5);
-        updateGlobalVars(healer, spell); // Need to be valid
-        var lastSpellTemp = this.state.lastSpell;
+
+        lastSpellTemp = this.state.lastSpell;
         lastSpellTemp["restodruid"] = spell;
         break;
       default:
@@ -201,14 +179,27 @@ class Healsim extends React.Component {
     }
 
     this.setState({
-      hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
-      hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
-      healUntiloom: "TBD",
       selectedButton: healer,
       selectedSpell: spell,
       spells: Spells.getSpells(healer),
-      lastSpell: lastSpellTemp
+      lastSpell: lastSpellTemp,
+      hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
+      hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
+      healUntiloom: "TBD",
     });
+  }
+
+  validateHealerSpell(healer, spell) {
+    if (spell == null && healer === this.state.selectedButton) {
+      return this.state.selectedSpell;
+    }
+
+    if (spell == null) {
+      let spellsArray = Spells.getSpells(healer);
+      return spellsArray[spellsArray.length - 1];
+    }
+
+    return spell;
   }
 }
 
@@ -225,7 +216,7 @@ function updateGlobalVars(className, spell) {
   // Issues with wrong heal values for some classes (Seen with wrong HPS/HPM calculated)
   baseheal = Spells.getBaseHeal(className, spell);
   casttime = Spells.getCastTime(className, spell);
-  manacost = Spells.getManaCost(className, spell);
+  manacost = Spells.getManaCost(className, spell) * Classes.manaMultiMap[className];
   basemana = Classes.getBaseMana(className);
   baseintellect = Classes.getBaseIntellect(className);
   basespirit = Classes.getBaseSpirit(className);
