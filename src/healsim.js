@@ -1,21 +1,20 @@
 import React from 'react';
 import Field from './field';
 import Stat from './stat';
-import Spells from './spells';
-import Classes from './classes';
+import Data from './data';
 import './healsim.css';
 
-var baseheal = Spells.paladinBaseHeal["Flash of Light (Rank 6)"];
-var healmulti = 1.12;
-var casttime = Spells.paladinCastTime["Flash of Light (Rank 6)"];
-var healcoefficient = (Spells.paladinCastTime["Flash of Light (Rank 6)"] / 3.5);
-var manacost = Spells.paladinManaCost["Flash of Light (Rank 6)"];
-var basemana = Classes.paladinBaseMana;
-var baseintellect = Classes.paladinBaseIntellect;
-var basespirit = Classes.paladinBaseSpirit;
-var mp5PerSpirit = Classes.paladinMP5PerSpirit;
-var baseSpiritMP5 = Classes.paladinBaseSpiritMP5;
-var intPerCrit = Classes.paladinIntPerCrit;
+var baseheal = Data.paladinBaseHeal["Flash of Light (Rank 6)"];
+var healmulti = Data.healMultiMap["holypaladin"];
+var casttime = Data.paladinCastTime["Flash of Light (Rank 6)"];
+var healcoefficient = Data.paladinCoefficient["Flash of Light (Rank 6)"];
+var manacost = Data.paladinManaCost["Flash of Light (Rank 6)"];
+var basemana = Data.paladinBaseMana;
+var baseintellect = Data.paladinBaseIntellect;
+var basespirit = Data.paladinBaseSpirit;
+var mp5PerSpirit = Data.paladinMP5PerSpirit;
+var baseSpiritMP5 = Data.paladinBaseSpiritMP5;
+var intPerCrit = Data.paladinIntPerCrit;
 
 class Healsim extends React.Component {
   constructor(props) {
@@ -29,9 +28,9 @@ class Healsim extends React.Component {
       hps: calculateHPS(baseheal, 0, healmulti, healcoefficient, casttime),
       hpm: calculateHPM(baseheal, 0, healmulti, healcoefficient, manacost),
       healUntiloom: "TBD",
-      selectedButton: "holypaladin",
+      selectedHealer: "holypaladin",
       selectedSpell: "Flash of Light (Rank 6)",
-      spells: Spells.paladinSpells,
+      spells: Data.paladinSpells,
       lastSpell: {
         "holypaladin": "Flash of Light (Rank 6)",
         "holypriest": "Greater Heal (Rank 5)",
@@ -40,7 +39,7 @@ class Healsim extends React.Component {
       }
     }
 
-    this.updateSpells = this.updateButton.bind(this);
+    this.updateButton = this.updateButton.bind(this);
     this.updateState = this.updateState.bind(this);
   }
 
@@ -48,34 +47,34 @@ class Healsim extends React.Component {
     return (
       <div className="Healsim" >
         <div className="Healsim-sidebar">
-          <button className={'holypaladin' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+          <button className={'holypaladin' == this.state.selectedHealer ? "focusButton" : "sidebarButton"}
             onClick={() => { this.updateButton('holypaladin', this.state.lastSpell["holypaladin"]) }}>Holy Paladin</button>
-          <button className={'holypriest' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+          <button className={'holypriest' == this.state.selectedHealer ? "focusButton" : "sidebarButton"}
             onClick={() => { this.updateButton('holypriest', this.state.lastSpell["holypriest"]) }}>Holy Priest</button>
-          <button className={'restoshaman' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+          <button className={'restoshaman' == this.state.selectedHealer ? "focusButton" : "sidebarButton"}
             onClick={() => { this.updateButton('restoshaman', this.state.lastSpell["restoshaman"]) }}>Resto Shaman</button>
-          <button className={'restodruid' == this.state.selectedButton ? "focusButton" : "sidebarButton"}
+          <button className={'restodruid' == this.state.selectedHealer ? "focusButton" : "sidebarButton"}
             onClick={() => { this.updateButton('restodruid', this.state.lastSpell["restodruid"]) }}>Resto Druid</button>
         </div>
         <div className="Healsim-spellbar">
           <button className={this.state.spells[0] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[0]) }}>{this.state.spells[0]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[0]) }}>{this.state.spells[0]}</button>
           <button className={this.state.spells[1] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[1]) }}> {this.state.spells[1]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[1]) }}> {this.state.spells[1]}</button>
           <button className={this.state.spells[2] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[2]) }}>{this.state.spells[2]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[2]) }}>{this.state.spells[2]}</button>
           <button className={this.state.spells[3] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[3]) }}>{this.state.spells[3]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[3]) }}>{this.state.spells[3]}</button>
           <button className={this.state.spells[4] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[4]) }}>{this.state.spells[4]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[4]) }}>{this.state.spells[4]}</button>
           <button className={this.state.spells[5] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[5]) }}>{this.state.spells[5]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[5]) }}>{this.state.spells[5]}</button>
           <button className={this.state.spells[6] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[6]) }}>{this.state.spells[6]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[6]) }}>{this.state.spells[6]}</button>
           <button className={this.state.spells[7] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[7]) }}>{this.state.spells[7]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[7]) }}>{this.state.spells[7]}</button>
           <button className={this.state.spells[8] == this.state.selectedSpell ? "spellfocusButton" : "spellbarButton"}
-            onClick={() => { this.updateButton(this.state.selectedButton, this.state.spells[8]) }}>{this.state.spells[8]}</button>
+            onClick={() => { this.updateButton(this.state.selectedHealer, this.state.spells[8]) }}>{this.state.spells[8]}</button>
         </div>
 
         <div className="Healsim-leftbody">
@@ -168,9 +167,9 @@ class Healsim extends React.Component {
     }
 
     this.setState({
-      selectedButton: healer,
+      selectedHealer: healer,
       selectedSpell: spell,
-      spells: Spells.getSpells(healer),
+      spells: Data.getSpells(healer),
       lastSpell: lastSpellTemp,
       hps: calculateHPS(baseheal, this.state.spellpower, healmulti, healcoefficient, casttime),
       hpm: calculateHPM(baseheal, this.state.spellpower, healmulti, healcoefficient, manacost),
@@ -179,12 +178,12 @@ class Healsim extends React.Component {
   }
 
   validateHealerSpell(healer, spell) {
-    if (spell == null && healer === this.state.selectedButton) {
+    if (spell == null && healer === this.state.selectedHealer) {
       return this.state.selectedSpell;
     }
 
     if (spell == null) {
-      let spellsArray = Spells.getSpells(healer);
+      let spellsArray = Data.getSpells(healer);
       return spellsArray[spellsArray.length - 1];
     }
 
@@ -200,18 +199,18 @@ function calculateHPM(baseheal, spellpower, healmulti, coefficient, manacost) {
   return parseFloat((baseheal + spellpower * healcoefficient) * healmulti / manacost).toFixed(2);
 }
 
-function updateGlobalVars(className, spell) {
-  baseheal = Spells.getBaseHeal(className, spell);
-  casttime = Spells.getCastTime(className, spell);
-  manacost = Spells.getManaCost(className, spell) * Classes.manaMultiMap[className];
-  healcoefficient = Spells.getCoefficient(className, spell);
-  basemana = Classes.getBaseMana(className);
-  baseintellect = Classes.getBaseIntellect(className);
-  basespirit = Classes.getBaseSpirit(className);
-  mp5PerSpirit = Classes.getMP5PerSpirit(className);
-  baseSpiritMP5 = Classes.getBaseSpiritMP5(className);
-  intPerCrit = Classes.getIntPerCrit(className);
-  healmulti = Classes.healMultiMap[className];
+function updateGlobalVars(healer, spell) {
+  baseheal = Data.getBaseHeal(healer, spell);
+  casttime = Data.getCastTime(healer, spell);
+  manacost = Data.getManaCost(healer, spell) * Data.manaMultiMap[healer];
+  healcoefficient = Data.getCoefficient(healer, spell);
+  basemana = Data.getBaseMana(healer);
+  baseintellect = Data.getBaseIntellect(healer);
+  basespirit = Data.getBaseSpirit(healer);
+  mp5PerSpirit = Data.getMP5PerSpirit(healer);
+  baseSpiritMP5 = Data.getBaseSpiritMP5(healer);
+  intPerCrit = Data.getIntPerCrit(healer);
+  healmulti = Data.healMultiMap[healer];
 }
 
 export default Healsim;
