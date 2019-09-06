@@ -1,4 +1,5 @@
 import React from 'react';
+import './stat.css'
 
 class Stat extends React.Component {
   render() {

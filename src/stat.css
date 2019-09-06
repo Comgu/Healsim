@@ -1,0 +1,26 @@
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+p {
+  background-color: #282c34;
+	color:#ffffff;
+	font-family:Arial;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 32px;
+  margin-right: 5%;
+}
+
+#statheader{
+  text-align: right;
+  background-color: #282c34;
+	color:#ffffff;
+	font-family:Arial;
+  font-size: 32px;
+  margin-left: 5%;
+}
