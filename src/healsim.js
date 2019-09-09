@@ -3,19 +3,20 @@ import Field from './field';
 import Stat from './stat';
 import Data from './data';
 import Utils from './utils';
+import Paladin from './paladin';
 import './healsim.css';
 
-var baseHeal = Data.paladinBaseHeal["Flash of Light (Rank 6)"];
+var baseHeal = Paladin.baseHeal["Flash of Light (Rank 6)"];
 var healMulti = Data.healMultiMap["holypaladin"];
-var castTime = Data.paladinCastTime["Flash of Light (Rank 6)"];
-var healCoefficient = Data.paladinCoefficient["Flash of Light (Rank 6)"];
-var manaCost = Data.paladinManaCost["Flash of Light (Rank 6)"];
-var baseMana = Data.paladinBaseMana;
-var baseIntellect = Data.paladinBaseIntellect;
-var baseSpirit = Data.paladinBaseSpirit;
-var mp5PerSpirit = Data.paladinMP5PerSpirit;
-var baseMP5FromSpirit = Data.paladinBaseSpiritMP5;
-var intPerCrit = Data.paladinIntPerCrit;
+var castTime = Paladin.castTime["Flash of Light (Rank 6)"];
+var healCoefficient = Paladin.coefficient["Flash of Light (Rank 6)"];
+var manaCost = Paladin.manaCost["Flash of Light (Rank 6)"];
+var baseMana = Paladin.baseMana;
+var baseIntellect = Paladin.baseIntellect;
+var baseSpirit = Paladin.baseSpirit;
+var mp5PerSpirit = Paladin.mp5PerSpirit;
+var baseMP5FromSpirit = Paladin.baseSpiritMP5;
+var intPerCrit = Paladin.intPerCrit;
 
 class Healsim extends React.Component {
 	constructor(props) {
@@ -26,12 +27,12 @@ class Healsim extends React.Component {
 			intellect: 0,
 			mp5: 0,
 			spellcrit: 0,
-			hps: Utils.calculateHPS(baseHeal, 0, healMulti, healCoefficient, castTime),
-			hpm: Utils.calculateHPM(baseHeal, 0, healMulti, healCoefficient, manaCost),
-			healUntilOOM: Utils.calculateOOM(baseHeal, 0, healMulti, healCoefficient, 0, 0, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, 0, baseIntellect),
+			hps: Utils.calculateHPS(baseHeal, 0, healMulti, healCoefficient, castTime, 0, 0, Paladin.baseIntellect, Paladin.intPerCrit),
+			hpm: Utils.calculateHPM(baseHeal, 0, healMulti, healCoefficient, manaCost, 0, 0, Paladin.baseIntellect, Paladin.intPerCrit),
+			healUntilOOM: Utils.calculateOOM(baseHeal, 0, healMulti, healCoefficient, 0, 0, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, 0, baseIntellect, 0, Paladin.intPerCrit),
 			selectedHealer: "holypaladin",
 			selectedSpell: "Flash of Light (Rank 6)",
-			spells: Data.paladinSpells,
+			spells: Paladin.spells,
 			lastSpell: {
 				"holypaladin": "Flash of Light (Rank 6)",
 				"holypriest": "Greater Heal (Rank 5)",
@@ -102,41 +103,41 @@ class Healsim extends React.Component {
 			case 'spellpower':
 				this.setState({
 					spellpower: value,
-					hps: Utils.calculateHPS(baseHeal, +value, healMulti, healCoefficient, castTime),
-					hpm: Utils.calculateHPM(baseHeal, +value, healMulti, healCoefficient, manaCost),
-					healUntilOOM: Utils.calculateOOM(baseHeal, +value, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect)
+					hps: Utils.calculateHPS(baseHeal, +value, healMulti, healCoefficient, castTime, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					hpm: Utils.calculateHPM(baseHeal, +value, healMulti, healCoefficient, manaCost, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					healUntilOOM: Utils.calculateOOM(baseHeal, +value, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect, +this.state.spellcrit, intPerCrit)
 				});
 				break;
 			case 'spirit':
 				this.setState({
 					spirit: value,
-					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime),
-					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost),
-					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +value, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect)
+					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +value, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect, +this.state.spellcrit, intPerCrit)
 				});
 				break;
 			case 'intellect':
 				this.setState({
 					intellect: value,
-					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime),
-					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost),
-					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +value, baseIntellect)
+					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime, +this.state.spellcrit, +value, baseIntellect, intPerCrit),
+					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost, +this.state.spellcrit, +value, baseIntellect, intPerCrit),
+					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +value, baseIntellect, +this.state.spellcrit, intPerCrit)
 				});
 				break;
 			case 'mp5':
 				this.setState({
 					mp5: value,
-					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime),
-					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost),
-					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +value, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect)
+					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +value, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect, +this.state.spellcrit, intPerCrit)
 				});
 				break;
 			case 'spellcrit':
 				this.setState({
 					spellcrit: value,
-					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime),
-					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost),
-					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect)
+					hps: Utils.calculateHPS(baseHeal, +this.state.spellpower, healMulti, healCoefficient, castTime, +value, +this.state.intellect, baseIntellect, intPerCrit),
+					hpm: Utils.calculateHPM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, manaCost, +value, +this.state.intellect, baseIntellect, intPerCrit),
+					healUntilOOM: Utils.calculateOOM(baseHeal, +this.state.spellpower, healMulti, healCoefficient, +this.state.mp5, +this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, +this.state.intellect, baseIntellect, +value, intPerCrit)
 				});
 				break;
 			default:
@@ -171,9 +172,9 @@ class Healsim extends React.Component {
 			selectedSpell: spell,
 			spells: Data.getSpells(healer),
 			lastSpell: lastSpellTemp,
-			hps: Utils.calculateHPS(baseHeal, this.state.spellpower, healMulti, healCoefficient, castTime),
-			hpm: Utils.calculateHPM(baseHeal, this.state.spellpower, healMulti, healCoefficient, manaCost),
-			healUntilOOM: Utils.calculateOOM(baseHeal, this.state.spellpower, healMulti, healCoefficient, this.state.mp5, this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, this.state.intellect, baseIntellect)
+			hps: Utils.calculateHPS(baseHeal, this.state.spellpower, healMulti, healCoefficient, castTime, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+			hpm: Utils.calculateHPM(baseHeal, this.state.spellpower, healMulti, healCoefficient, manaCost, +this.state.spellcrit, +this.state.intellect, baseIntellect, intPerCrit),
+			healUntilOOM: Utils.calculateOOM(baseHeal, this.state.spellpower, healMulti, healCoefficient, this.state.mp5, this.state.spirit, baseSpirit, mp5PerSpirit, baseMP5FromSpirit, manaCost, castTime, baseMana, this.state.intellect, baseIntellect, +this.state.spellcrit, intPerCrit)
 		});
 	}
 

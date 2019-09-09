@@ -1,177 +1,9 @@
-const ineffective = 15;
+import Shaman from './shaman'
+import Druid from './druid';
+import Paladin from './paladin';
+import Priest from './priest';
 
 class Data {
-    static paladinSpells = [
-        "Flash of Light (Rank 1)",
-        "Flash of Light (Rank 2)",
-        "Flash of Light (Rank 3)",
-        "Flash of Light (Rank 4)",
-        "Flash of Light (Rank 5)",
-        "Flash of Light (Rank 6)",
-    ];
-    static paladinBaseHeal = {
-        "Flash of Light (Rank 1)": (67 + 77) / 2,
-        "Flash of Light (Rank 2)": (102 + 117) / 2,
-        "Flash of Light (Rank 3)": (153 + 171) / 2,
-        "Flash of Light (Rank 4)": (206 + 231) / 2,
-        "Flash of Light (Rank 5)": (278 + 310) / 2,
-        "Flash of Light (Rank 6)": (348 + 389) / 2,
-    };
-    static paladinManaCost = {
-        "Flash of Light (Rank 1)": 35,
-        "Flash of Light (Rank 2)": 50,
-        "Flash of Light (Rank 3)": 70,
-        "Flash of Light (Rank 4)": 90,
-        "Flash of Light (Rank 5)": 115,
-        "Flash of Light (Rank 6)": 140,
-    };
-    static paladinCastTime = {
-        "Flash of Light (Rank 1)": 1.5,
-        "Flash of Light (Rank 2)": 1.5,
-        "Flash of Light (Rank 3)": 1.5,
-        "Flash of Light (Rank 4)": 1.5,
-        "Flash of Light (Rank 5)": 1.5,
-        "Flash of Light (Rank 6)": 1.5,
-    };
-    static paladinCoefficient = {
-        "Flash of Light (Rank 1)": 1.5 / 3.5,
-        "Flash of Light (Rank 2)": 1.5 / 3.5,
-        "Flash of Light (Rank 3)": 1.5 / 3.5,
-        "Flash of Light (Rank 4)": 1.5 / 3.5,
-        "Flash of Light (Rank 5)": 1.5 / 3.5,
-        "Flash of Light (Rank 6)": 1.5 / 3.5,
-    };
-    static druidSpells = [
-        "Healing Touch (Rank 3)",
-        "Healing Touch (Rank 4)",
-        "Healing Touch (Rank 5)",
-        "Healing Touch (Rank 6)",
-        "Healing Touch (Rank 7)",
-        "Healing Touch (Rank 8)",
-        "Healing Touch (Rank 9)",
-        "Healing Touch (Rank 10)",
-        "Healing Touch (Rank 11)",
-    ];
-    static druidBaseHeal = {
-        "Healing Touch (Rank 3)": (204 + 253) / 2,
-        "Healing Touch (Rank 4)": (376 + 459) / 2,
-        "Healing Touch (Rank 5)": (589 + 712) / 2,
-        "Healing Touch (Rank 6)": (762 + 914) / 2,
-        "Healing Touch (Rank 7)": (958 + 1143) / 2,
-        "Healing Touch (Rank 8)": (1225 + 1453) / 2,
-        "Healing Touch (Rank 9)": (1545 + 1826) / 2,
-        "Healing Touch (Rank 10)": (1916 + 2257) / 2,
-        "Healing Touch (Rank 11)": (2267 + 2677) / 2,
-    };
-    static druidManaCost = {
-        "Healing Touch (Rank 3)": 110,
-        "Healing Touch (Rank 4)": 185,
-        "Healing Touch (Rank 5)": 270,
-        "Healing Touch (Rank 6)": 335,
-        "Healing Touch (Rank 7)": 405,
-        "Healing Touch (Rank 8)": 495,
-        "Healing Touch (Rank 9)": 600,
-        "Healing Touch (Rank 10)": 720,
-        "Healing Touch (Rank 11)": 800,
-    };
-    static druidCastTime = {
-        "Healing Touch (Rank 3)": 2,
-        "Healing Touch (Rank 4)": 2.5,
-        "Healing Touch (Rank 5)": 3,
-        "Healing Touch (Rank 6)": 3,
-        "Healing Touch (Rank 7)": 3,
-        "Healing Touch (Rank 8)": 3,
-        "Healing Touch (Rank 9)": 3,
-        "Healing Touch (Rank 10)": 3,
-        "Healing Touch (Rank 11)": 3,
-    };
-    static druidCoefficient = {
-        "Healing Touch (Rank 3)": 2.5 / 3.5 * (1 - ((20 - 14) * 0.0375)),
-        "Healing Touch (Rank 4)": 3.0 / 3.5,
-        "Healing Touch (Rank 5)": 3.5 / 3.5,
-        "Healing Touch (Rank 6)": 3.5 / 3.5,
-        "Healing Touch (Rank 7)": 3.5 / 3.5,
-        "Healing Touch (Rank 8)": 3.5 / 3.5,
-        "Healing Touch (Rank 9)": 3.5 / 3.5,
-        "Healing Touch (Rank 10)": 3.5 / 3.5,
-        "Healing Touch (Rank 11)": 3.5 / 3.5,
-    };
-    static priestSpells = [
-        "Heal (Rank 2)",
-        "Heal (Rank 3)",
-        "Heal (Rank 4)",
-        "Greater Heal (Rank 1)",
-        "Greater Heal (Rank 2)",
-        "Greater Heal (Rank 3)",
-        "Greater Heal (Rank 4)",
-        "Greater Heal (Rank 5)",
-    ];
-    static priestBaseHeal = {
-        "Heal (Rank 2)": (445 + 507) / 2,
-        "Heal (Rank 3)": (586 + 662) / 2,
-        "Heal (Rank 4)": (734 + 827) / 2,
-        "Greater Heal (Rank 1)": (924 + 1039) / 2,
-        "Greater Heal (Rank 2)": (1178 + 1318) / 2,
-        "Greater Heal (Rank 3)": (1470 + 1642) / 2,
-        "Greater Heal (Rank 4)": (1813 + 2021) / 2,
-        "Greater Heal (Rank 5)": (1966 + 2194) / 2,
-    };
-    static priestManaCost = {
-        "Heal (Rank 2)": 205,
-        "Heal (Rank 3)": 255,
-        "Heal (Rank 4)": 305,
-        "Greater Heal (Rank 1)": 370,
-        "Greater Heal (Rank 2)": 455,
-        "Greater Heal (Rank 3)": 545,
-        "Greater Heal (Rank 4)": 655,
-        "Greater Heal (Rank 5)": 710,
-    };
-    static priestCastTime = {
-        "Heal (Rank 2)": 2.5,
-        "Heal (Rank 3)": 2.5,
-        "Heal (Rank 4)": 2.5,
-        "Greater Heal (Rank 1)": 2.5,
-        "Greater Heal (Rank 2)": 2.5,
-        "Greater Heal (Rank 3)": 2.5,
-        "Greater Heal (Rank 4)": 2.5,
-        "Greater Heal (Rank 5)": 2.5,
-    };
-    static priestCoefficient = {
-        "Heal (Rank 2)": 3 / 3.5,
-        "Heal (Rank 3)": 3 / 3.5,
-        "Heal (Rank 4)": 3 / 3.5,
-        "Greater Heal (Rank 1)": 3 / 3.5,
-        "Greater Heal (Rank 2)": 3 / 3.5,
-        "Greater Heal (Rank 3)": 3 / 3.5,
-        "Greater Heal (Rank 4)": 3 / 3.5,
-        "Greater Heal (Rank 5)": 3 / 3.5,
-    };
-
-    static shamanSpells = [
-        "Chain Heal (Rank 1)",
-        "Chain Heal (Rank 2)",
-        "Chain Heal (Rank 3)",
-    ];
-    static shamanBaseHeal = {
-        "Chain Heal (Rank 1)": (332 + 381) / 2,
-        "Chain Heal (Rank 2)": (419 + 479) / 2,
-        "Chain Heal (Rank 3)": (567 + 646) / 2,
-    };
-    static shamanManaCost = {
-        "Chain Heal (Rank 1)": 260,
-        "Chain Heal (Rank 2)": 315,
-        "Chain Heal (Rank 3)": 405,
-    };
-    static shamanCastTime = {
-        "Chain Heal (Rank 1)": 2.5,
-        "Chain Heal (Rank 2)": 2.5,
-        "Chain Heal (Rank 3)": 2.5,
-    };
-    static shamanCoefficient = {
-        "Chain Heal (Rank 1)": 2.5 / 3.5,
-        "Chain Heal (Rank 2)": 2.5 / 3.5,
-        "Chain Heal (Rank 3)": 2.5 / 3.5,
-    };
 
     static healMultiMap = {
         "holypaladin": 1.12,
@@ -187,48 +19,18 @@ class Data {
         "restodruid": 0.81,
     }
 
-    // Night Elf Druid Base Stats
-    static druidBaseMana = 1244;
-    static druidBaseIntellect = 100 - ineffective;
-    static druidBaseSpirit = 110 - ineffective;
-    static druidIntPerCrit = 60;
-    static druidMP5PerSpirit = 0.2 * 2.5;
-    static druidBaseSpiritMP5 = 37.5;
 
-    // Human Paladin Base Stats
-    static paladinBaseMana = 1512;
-    static paladinBaseIntellect = 70 - ineffective;
-    static paladinBaseSpirit = 78 - ineffective;
-    static paladinIntPerCrit = 29.5;
-    static paladinMP5PerSpirit = 0;
-    static paladinBaseSpiritMP5 = 0;
-
-    // Dwarf Priest Base Stats
-    static priestBaseMana = 1436;
-    static priestBaseIntellect = 119 - ineffective;
-    static priestBaseSpirit = 124 - ineffective;
-    static priestIntPerCrit = 59.2;
-    static priestMP5PerSpirit = 0.25 * 2.5;
-    static priestBaseSpiritMP5 = 32.5;
-
-    // Orc Shaman Base Stats
-    static shamanBaseMana = 1520;
-    static shamanBaseIntellect = 87 - ineffective;
-    static shamanBaseSpirit = 103 - ineffective;
-    static shamanIntPerCrit = 59.5;
-    static shamanMP5PerSpirit = 0;
-    static shamanBaseSpiritMP5 = 0;
 
     static getBaseMana(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinBaseMana;
+                return Paladin.baseMana;
             case "holypriest":
-                return this.priestBaseMana;
+                return Priest.baseMana;
             case "restoshaman":
-                return this.shamanBaseMana;
+                return Shaman.baseMana;
             case "restodruid":
-                return this.druidBaseMana;
+                return Druid.baseMana;
             default:
             // Not valid class
         }
@@ -237,13 +39,13 @@ class Data {
     static getBaseIntellect(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinBaseIntellect;
+                return Paladin.baseIntellect;
             case "holypriest":
-                return this.priestBaseIntellect;
+                return Priest.baseIntellect;
             case "restoshaman":
-                return this.shamanBaseIntellect;
+                return Shaman.baseIntellect;
             case "restodruid":
-                return this.druidBaseIntellect;
+                return Druid.baseIntellect;
             default:
             // Not valid class
         }
@@ -252,13 +54,13 @@ class Data {
     static getBaseSpirit(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinBaseSpirit;
+                return Paladin.baseSpirit;
             case "holypriest":
-                return this.priestBaseSpirit;
+                return Priest.baseSpirit;
             case "restoshaman":
-                return this.shamanBaseSpirit;
+                return Shaman.baseSpirit;
             case "restodruid":
-                return this.druidBaseSpirit;
+                return Druid.baseSpirit;
             default:
             // Not valid class
         }
@@ -267,13 +69,13 @@ class Data {
     static getIntPerCrit(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinIntPerCrit;
+                return Paladin.intPerCrit;
             case "holypriest":
-                return this.priestIntPerCrit;
+                return Priest.intPerCrit;
             case "restoshaman":
-                return this.shamanIntPerCrit;
+                return Shaman.intPerCrit;
             case "restodruid":
-                return this.druidIntPerCrit;
+                return Druid.intPerCrit;
             default:
             // Not valid class
         }
@@ -282,13 +84,13 @@ class Data {
     static getMP5PerSpirit(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinMP5PerSpirit;
+                return Paladin.mp5PerSpirit;
             case "holypriest":
-                return this.priestMP5PerSpirit;
+                return Priest.mp5PerSpirit;
             case "restoshaman":
-                return this.shamanMP5PerSpirit;
+                return Shaman.mp5PerSpirit;
             case "restodruid":
-                return this.druidMP5PerSpirit;
+                return Druid.mp5PerSpirit;
             default:
             // Not valid class
         }
@@ -297,13 +99,13 @@ class Data {
     static getBaseSpiritMP5(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinBaseSpiritMP5;
+                return Paladin.baseSpiritMP5;
             case "holypriest":
-                return this.priestBaseSpiritMP5;
+                return Priest.baseSpiritMP5;
             case "restoshaman":
-                return this.shamanBaseSpiritMP5;
+                return Shaman.baseSpiritMP5;
             case "restodruid":
-                return this.druidBaseSpiritMP5;
+                return Druid.baseSpiritMP5;
             default:
             // Not valid class
         }
@@ -312,13 +114,13 @@ class Data {
     static getBaseHeal(className, spell) {
         switch (className) {
             case "holypaladin":
-                return this.paladinBaseHeal[spell];
+                return Paladin.baseHeal[spell];
             case "holypriest":
-                return this.priestBaseHeal[spell];
+                return Priest.baseHeal[spell];
             case "restoshaman":
-                return this.shamanBaseHeal[spell];
+                return Shaman.baseHeal[spell];
             case "restodruid":
-                return this.druidBaseHeal[spell];
+                return Druid.baseHeal[spell];
             default:
                 // Invalid class
                 return 1;
@@ -328,13 +130,13 @@ class Data {
     static getCastTime(className, spell) {
         switch (className) {
             case "holypaladin":
-                return this.paladinCastTime[spell];
+                return Paladin.castTime[spell];
             case "holypriest":
-                return this.priestCastTime[spell];
+                return Priest.castTime[spell];
             case "restoshaman":
-                return this.shamanCastTime[spell];
+                return Shaman.castTime[spell];
             case "restodruid":
-                return this.druidCastTime[spell];
+                return Druid.castTime[spell];
             default:
                 // Invalid class
                 return 1;
@@ -344,13 +146,13 @@ class Data {
     static getManaCost(className, spell) {
         switch (className) {
             case "holypaladin":
-                return this.paladinManaCost[spell];
+                return Paladin.manaCost[spell];
             case "holypriest":
-                return this.priestManaCost[spell];
+                return Priest.manaCost[spell];
             case "restoshaman":
-                return this.shamanManaCost[spell];
+                return Shaman.manaCost[spell];
             case "restodruid":
-                return this.druidManaCost[spell];
+                return Druid.manaCost[spell];
             default:
                 // Invalid class
                 return 1;
@@ -360,13 +162,13 @@ class Data {
     static getCoefficient(className, spell) {
         switch (className) {
             case "holypaladin":
-                return this.paladinCoefficient[spell];
+                return Paladin.coefficient[spell];
             case "holypriest":
-                return this.priestCoefficient[spell];
+                return Priest.coefficient[spell];
             case "restoshaman":
-                return this.shamanCoefficient[spell];
+                return Shaman.coefficient[spell];
             case "restodruid":
-                return this.druidCoefficient[spell];
+                return Druid.coefficient[spell];
             default:
                 // Not valid class
                 return 1;
@@ -375,13 +177,13 @@ class Data {
     static getSpells(className) {
         switch (className) {
             case "holypaladin":
-                return this.paladinSpells;
+                return Paladin.spells;
             case "holypriest":
-                return this.priestSpells;
+                return Priest.spells;
             case "restoshaman":
-                return this.shamanSpells;
+                return Shaman.spells;
             case "restodruid":
-                return this.druidSpells;
+                return Druid.spells;
             default:
             // Not valid class
         }
