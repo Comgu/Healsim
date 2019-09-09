@@ -10,9 +10,9 @@
   min-width: calc(40vw - 2px);
   display: flex;
   flex-direction: column;
-  text-align: center;
   padding-top: 10vh;
   border-right: 2px solid rgb(8, 2, 37);
+  text-align: center;  
 }
 
 .Healsim-leftbody h1 {
@@ -29,9 +29,9 @@
   min-width: calc(50vw - 2px);
   display: flex;
   flex-direction: column;
-  text-align: center;
   padding-top: 10vh;
   border-left: 2px solid rgb(8, 2, 37);
+  text-align: center;  
 }
 
 .Healsim-rightbody h1 {
